@@ -1,167 +1,112 @@
-# By Manoel — Next.js + TypeScript + Tailwind + shadcn
+# FARUM — Next.js + TypeScript + Tailwind + shadcn
 
-Este proyecto se migró de un sitio HTML/CSS/JS plano (ver `legacy-static-site/`)
-a una app **Next.js 15 (App Router) + TypeScript + Tailwind CSS v4**, con la
-estructura de carpetas que usa **shadcn** (`/components/ui`, `/lib/utils.ts`,
-`components.json`), e integra el componente `ResponsiveHeroBanner` como el
-nuevo hero de la página.
+Sitio de **FARUM**: ayudamos a pymes a llevar su empresa al siguiente nivel con
+un kit que reúne la **página web de su marca**, un **QR llavero**, una
+**tarjeta NFC** y **posicionamiento digital** (SEO local en Google), más un plan
+de mantención mensual.
 
-## ✅ Node.js ya está instalado y el proyecto corre
+Stack: **Next.js 15 (App Router) + TypeScript + Tailwind CSS v4**, con la
+estructura de carpetas de **shadcn** (`/components/ui`, `/lib/utils.ts`,
+`components.json`). El sitio se exporta como HTML/CSS/JS estático.
 
-Instalé **Node.js 24 LTS** (`winget install OpenJS.NodeJS.LTS`), corrí
-`npm install` y levanté `npm run dev` — el sitio compiló y cargó
-correctamente en `http://localhost:3000` (lo verifiqué en el navegador:
-hero, precios, clientes, agenda, FAQ, contacto y footer, todo con estilos y
-sin errores). De paso subí Next.js de `15.1.0` a `15.5.25` porque la
-versión original tenía una vulnerabilidad crítica ya parcheada, y actualicé
-Tailwind CSS v4 a la última versión porque la inicial (`4.0.0`) tenía un bug
-de compatibilidad con su propio motor nativo.
+## Correrlo en local
 
-Si en el futuro trabajas este proyecto en **otro computador**, ahí sí
-necesitarás instalar Node.js primero: descarga la versión **LTS** desde
-[nodejs.org](https://nodejs.org/es) (o `winget install OpenJS.NodeJS.LTS`),
-y luego:
+Necesitas Node.js LTS ([nodejs.org](https://nodejs.org/es) o
+`winget install OpenJS.NodeJS.LTS`). Luego:
 
 ```bash
 npm install
 npm run dev
 ```
 
-para levantarlo en `http://localhost:3000`.
+y abre `http://localhost:3000`.
 
-### (Opcional) Confirmar que shadcn está bien inicializado
+## Editar textos, precios y datos
 
-El archivo `components.json` ya está creado a mano con la configuración
-estándar de shadcn (`/components/ui`, alias `@/*`, Tailwind v4). Si más
-adelante quieres agregar componentes oficiales de shadcn (botones, inputs,
-diálogos, etc.), ya puedes usar directamente:
+**Casi todo el contenido vive en un solo archivo: [`lib/site-config.ts`](lib/site-config.ts)**
+(nombre de marca, textos del hero, los 4 pilares, precios, FAQ, WhatsApp,
+mensajes precargados, dirección, horarios, clientes y rutas de los logos).
+Los componentes solo lo leen, así que para cambiar un precio o un texto
+basta con editar ese archivo.
+
+## Publicar
+
+### GitHub Pages (lo que está configurado)
+
+Cada `push` a `main` dispara [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml),
+que hace el build estático y lo publica. Como el sitio se sirve desde un
+subpath del repo, el workflow define `NEXT_PUBLIC_BASE_PATH` y
+`next.config.ts` activa `basePath` solo en el build de GitHub Actions.
+
+### Hosting tradicional (cPanel, Hostinger, etc.)
 
 ```bash
-npx shadcn@latest add button
+npm run build
 ```
 
-y se instalará en `/components/ui/button.tsx`, coherente con lo que ya hay.
+Genera la carpeta `out/`. Sube **el contenido** de `out/` (no la carpeta) a
+la raíz de tu hosting. En local el `basePath` queda vacío, así que ese build
+sirve desde la raíz.
 
-## Cómo publicar / actualizar tu hosting con estos cambios
-
-Configuré el proyecto (`next.config.ts`, con `output: "export"`) para que
-`npm run build` genere un sitio **100% estático** — los mismos
-HTML/CSS/JS planos que puedes subir a un hosting tradicional (cPanel,
-Hostinger, etc.), exactamente como hacías con la versión anterior. Ya lo
-probé: el build corre sin errores y genera la carpeta `out/` con todo
-adentro (~1.5 MB).
-
-### Cada vez que quieras actualizar tu web con cambios nuevos:
-
-1. **Genera la versión de producción:**
-
-   ```bash
-   npm run build
-   ```
-
-   Esto crea (o regenera) la carpeta `out/` en la raíz del proyecto, con
-   `index.html`, `robots.txt`, `sitemap.xml`, los estilos, el JS y las
-   imágenes — todo lo que tu hosting necesita.
-
-2. **Sube el contenido de `out/` a la raíz de tu hosting** (no la carpeta
-   `out` en sí, sino lo que hay *adentro* de ella), reemplazando lo que
-   haya ahí. Dos formas típicas:
-
-   - **Administrador de archivos de cPanel/Hostinger**: entra a
-     `public_html/` (o la carpeta raíz de tu dominio), borra el contenido
-     anterior y sube/arrastra todo lo de `out/`.
-   - **FTP** (FileZilla u otro cliente): conéctate con los datos de tu
-     hosting, navega a `public_html/`, y sube el contenido de `out/` ahí,
-     sobrescribiendo los archivos existentes.
-
-3. Verifica en el navegador que tu dominio cargue la versión nueva (si no
-   se ve actualizado, prueba refrescar con `Ctrl+Shift+R` para saltarte la
-   caché del navegador).
-
-**En resumen: cada actualización futura es "`npm run build` → subir el
-contenido de `out/`"**, el mismo flujo que ya conocías, solo que ahora el
-HTML final lo genera Next.js en vez de que tú lo edites a mano.
-
-⚠️ Antes de la primera subida real, reemplaza `https://www.tudominio.cl`
-por tu dominio de verdad en `app/layout.tsx`, `app/sitemap.ts` y
-`app/robots.ts` (ver más abajo), y vuelve a correr `npm run build`.
-
-## Por qué `/components/ui` importa
-
-Es la convención que usa shadcn (y la que pediste seguir): mantener ahí los
-componentes de interfaz "de bajo nivel" y reutilizables (el hero, botones,
-tarjetas, etc.), separados de la lógica de página. Esto permite que el CLI
-de shadcn (`npx shadcn add ...`) sepa exactamente dónde instalar nuevos
-componentes sin pisar tu código de negocio, y que cualquier otro desarrollador
-(o yo, en una sesión futura) sepa de inmediato dónde buscar cada pieza.
-Las secciones específicas del negocio (precios, clientes, agenda, FAQ,
-contacto) viven aparte, en `/components/sections/`, para no mezclar
-"piezas de UI genéricas" con "secciones armadas para By Manoel".
-
-## Estructura del proyecto
+## Estructura
 
 ```
 ├── app/
-│   ├── layout.tsx        Metadata SEO, JSON-LD, fuentes (next/font)
-│   ├── page.tsx          Ensambla todas las secciones
-│   ├── globals.css       Tema oscuro (variables de color/tipografía)
-│   ├── sitemap.ts         /sitemap.xml generado por Next.js
-│   └── robots.ts          /robots.txt generado por Next.js
+│   ├── layout.tsx         Metadata SEO, JSON-LD, fuentes (next/font)
+│   ├── page.tsx           Ensambla las secciones
+│   ├── globals.css        Tema oscuro (variables de color/tipografía)
+│   ├── icon.png           Favicon (faro sobre fondo oscuro)
+│   ├── apple-icon.png     Ícono para iOS
+│   ├── sitemap.ts         /sitemap.xml
+│   └── robots.ts          /robots.txt
 ├── components/
 │   ├── ui/
-│   │   └── responsive-hero-banner.tsx   (el componente que pediste integrar)
+│   │   ├── responsive-hero-banner.tsx   Hero (header, titular, CTA, clientes)
+│   │   └── gateway-flow.tsx             Fondo animado del hero
 │   ├── sections/
-│   │   ├── services-section.tsx   (precios: Paquete Inicial + Suscripción)
-│   │   ├── clients-section.tsx    (Inflables Champa, Zona Trofeos)
-│   │   ├── booking-section.tsx    (agenda de horas, con bloqueo de cupos)
-│   │   ├── faq-section.tsx        (acordeón de preguntas frecuentes)
-│   │   └── contact-section.tsx    (WhatsApp + QR + aviso de seguridad)
+│   │   ├── services-section.tsx   4 pilares + precios
+│   │   ├── clients-section.tsx    Clientes
+│   │   ├── booking-section.tsx    Agenda de horas (con bloqueo de cupos)
+│   │   ├── faq-section.tsx        Preguntas frecuentes
+│   │   └── contact-section.tsx    WhatsApp + QR + aviso de seguridad
 │   ├── site-footer.tsx
-│   └── whatsapp-fab.tsx   (botón flotante)
+│   ├── site-signature.tsx  Sello de autoría (logo, esquina inferior derecha)
+│   └── whatsapp-fab.tsx    Botón flotante de WhatsApp
 ├── lib/
-│   ├── site-config.ts     ⭐ TODOS los datos del negocio en un solo lugar
+│   ├── site-config.ts      ⭐ Contenido y datos del negocio
 │   └── utils.ts            Helper cn() estándar de shadcn
-├── public/clients/         Logos reales de Inflables Champa y Zona Trofeos
-└── legacy-static-site/     El sitio HTML anterior, archivado como respaldo
+└── public/
+    ├── brand/              Logos FARUM (ver abajo)
+    └── clients/            Logos de los clientes
 ```
 
-## Qué cambié respecto al componente que me pasaste
+## Marca y logos
 
-El `ResponsiveHeroBanner` original (de 21st.dev, con temática "vuelos a
-Marte") lo adapté así:
+Los logos están en [`public/brand/`](public/brand), en dos formatos y dos colores:
 
-1. **Contenido**: textos, botones y enlaces ahora son los de By Manoel
-   (en español), no los de la demo espacial.
-2. **Logo**: el componente original solo aceptaba una imagen de fondo para
-   el logo. Como By Manoel todavía no tiene un isotipo exportado como
-   archivo, agregué un modo de texto (`logoText`) que usa la fuente firma
-   (Alex Brush) — si más adelante exportas un logo real, basta con pasar
-   `logoUrl` y usa la imagen.
-3. **Menú móvil**: el botón hamburguesa existía en el componente original,
-   pero no desplegaba ningún menú al hacer clic (el `mobileMenuOpen` no se
-   usaba en ningún lado). Le agregué el panel desplegable correspondiente.
-4. **Imagen de fondo**: usé una foto real de Unsplash (código en pantalla,
-   ambiente oscuro) en vez del placeholder de la nave espacial — con
-   `next/image` y un overlay oscuro para que el texto siempre sea legible.
-5. **Clientes ("partners")**: en vez de logos inventados, usa los dos logos
-   reales que ya tenías (Inflables Champa, Zona Trofeos), extraídos del
-   diseño anterior en Claude Design y guardados como archivos PNG en
-   `/public/clients/`.
+| Archivo | Uso |
+|---|---|
+| `farum-logo-horizontal-white.png` | Header (fondo oscuro) |
+| `farum-logo-vertical-white.png` | Footer (fondo oscuro) |
+| `farum-icon-white.png` | Solo el faro, blanco |
+| `farum-logo-*-black.png`, `farum-icon-black.png` | Versiones negras, para fondos claros (impresos, documentos) |
 
-## Cosas para revisar/decidir tú
+Son PNG con fondo transparente, generados a partir del logo original. Si más
+adelante tienes los logos en vectorial (SVG), conviene reemplazarlos: se
+verán nítidos a cualquier tamaño.
 
-- **Dominio real**: reemplaza `https://www.tudominio.cl` en
-  `app/layout.tsx`, `app/sitemap.ts` y `app/robots.ts`.
-- **Imagen de fondo del hero**: elegí una foto de Unsplash (código en
-  pantalla) porque no tenías una foto propia del negocio. Si prefieres otra
-  imagen (o una foto real tuya/de tu oficina), se cambia en un solo lugar:
-  la prop `backgroundImageUrl` en `app/page.tsx`.
-- **El agendamiento sigue usando `localStorage`** (igual que en la versión
-  anterior): el bloqueo de horarios es por navegador, no hay backend
-  compartido. Sigue siendo válido porque cada reserva llega por WhatsApp y
-  tú confirmas a mano, pero no evita que dos personas en dispositivos
-  distintos reserven la misma hora sin saberlo.
-- Añadí la librería `qrcode` (no estaba en tu prompt original) porque la
-  sección de contacto necesitaba generar el código QR de WhatsApp — es la
-  forma estándar de hacerlo en React sin depender de un script externo por
-  CDN como en la versión HTML anterior.
+## Notas técnicas
+
+- **Fondo del hero (`GatewayFlow`)**: es un `<iframe>` que carga scripts desde
+  CDNs (Tailwind, GSAP, iconify), así que necesita conexión a internet para
+  mostrarse. Es decorativo (`aria-hidden`) y se congela si el usuario tiene
+  activada la opción de reducir animaciones.
+- **Agenda**: el bloqueo de horarios usa `localStorage`, es decir, es por
+  navegador y no hay backend compartido. Sirve porque cada reserva llega por
+  WhatsApp y se confirma a mano, pero no evita que dos personas en
+  dispositivos distintos pidan la misma hora.
+- **Repo y URL**: el repositorio de GitHub conserva su nombre original, por lo
+  que la URL publicada y `basePath` (en `next.config.ts`, el workflow,
+  `app/layout.tsx`, `app/sitemap.ts` y `app/robots.ts`) todavía apuntan a él.
+  Si lo renombras o conectas un dominio propio, hay que actualizar esos
+  cinco lugares.

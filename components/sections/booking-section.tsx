@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import { Check, Clock, MapPin, Video } from "lucide-react";
 import { siteConfig, waLink } from "@/lib/site-config";
 
-const STORAGE_KEY = "bymanoel_bookings_v1";
+const STORAGE_KEY = "farum_bookings_v1";
 
 type Modality = "Presencial" | "Zoom";
 

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { siteConfig, waLink } from "@/lib/site-config";
 
 export function SiteFooter() {
@@ -8,12 +9,16 @@ export function SiteFooter() {
       <div className="mx-auto flex max-w-5xl flex-col gap-10 px-6">
         <div className="flex flex-wrap justify-between gap-10">
           <div className="max-w-xs">
-            <span className="text-2xl leading-none text-foreground [font-family:var(--font-signature)]">
-              {siteConfig.businessName}
-            </span>
-            <p className="mt-3 text-sm text-muted-foreground">
-              {siteConfig.tagline} para pequeños negocios. Diseño, soporte y
-              presencia online, todo en una suscripción simple.
+            <Image
+              src={siteConfig.brand.logoVertical}
+              alt={siteConfig.businessName}
+              width={354}
+              height={323}
+              className="h-24 w-auto"
+            />
+            <p className="mt-4 text-sm text-muted-foreground">
+              {siteConfig.tagline}: página web, QR llavero, tarjeta NFC y
+              posicionamiento digital, todo en un solo kit.
             </p>
           </div>
 
@@ -24,7 +29,7 @@ export function SiteFooter() {
               </h4>
               <div className="flex flex-col gap-2 text-sm">
                 <a href="#servicios" className="text-muted-foreground hover:text-foreground">
-                  Servicios
+                  Qué incluye
                 </a>
                 <a href="#clientes" className="text-muted-foreground hover:text-foreground">
                   Clientes

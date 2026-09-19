@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { ArrowRight, ArrowUpRight, Menu, X } from "lucide-react";
+import GatewayFlow from "@/components/ui/gateway-flow";
 
 interface NavLink {
   label: string;
@@ -17,11 +18,10 @@ interface Partner {
 }
 
 interface ResponsiveHeroBannerProps {
-  /** Texto del logo (por defecto, mientras no exista un isotipo exportado). */
+  /** Texto de respaldo del logo (se usa solo si no se pasa `logoUrl`). */
   logoText?: string;
-  /** Si se pasa, se usa como imagen de logo en vez del texto. */
+  /** Imagen del logo (versión clara, para el fondo oscuro del hero). */
   logoUrl?: string;
-  backgroundImageUrl?: string;
   navLinks?: NavLink[];
   ctaButtonText?: string;
   ctaButtonHref?: string;
@@ -38,24 +38,40 @@ interface ResponsiveHeroBannerProps {
   partners?: Partner[];
 }
 
+/** Detecta si el usuario pidió reducir animaciones en su sistema. */
+function usePrefersReducedMotion() {
+  const [reduced, setReduced] = useState(false);
+
+  useEffect(() => {
+    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const update = () => setReduced(media.matches);
+    update();
+    media.addEventListener("change", update);
+    return () => media.removeEventListener("change", update);
+  }, []);
+
+  return reduced;
+}
+
 /**
  * ResponsiveHeroBanner
  * ------------------------------------------------------------------
- * Adaptado del componente original (21st.dev) para By Manoel:
- * - `logoUrl` (imagen de fondo) se volvió opcional; si no se pasa,
- *   se renderiza `logoText` con la fuente firma (--font-signature).
- *   Motivo: By Manoel aún no tiene un isotipo exportado como imagen.
+ * Adaptado del componente original (21st.dev) para FARUM:
+ * - El fondo es `GatewayFlow` (líneas de flujo animadas que convergen
+ *   al centro, donde vive el titular) en vez de una foto. Si el sistema
+ *   pide reducir animaciones, el flujo se congela (`speed={0}`).
+ * - `logoUrl` renderiza el logo como imagen; `logoText` queda como
+ *   respaldo en texto.
  * - Se agregó el panel de menú móvil: el botón hamburguesa existía
  *   en el original pero no desplegaba ningún contenido.
- * - `partners` ahora requiere `name` (para el `alt` de la imagen).
+ * - `partners` requiere `name` (para el `alt` de la imagen).
  * ------------------------------------------------------------------
  */
 const ResponsiveHeroBanner: React.FC<ResponsiveHeroBannerProps> = ({
-  logoText = "By Manoel",
+  logoText = "FARUM",
   logoUrl,
-  backgroundImageUrl = "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=2070&auto=format&fit=crop",
   navLinks = [
-    { label: "Servicios", href: "#servicios" },
+    { label: "Qué incluye", href: "#servicios" },
     { label: "Clientes", href: "#clientes" },
     { label: "Agendar", href: "#agenda" },
     { label: "Preguntas", href: "#faq" },
@@ -63,34 +79,37 @@ const ResponsiveHeroBanner: React.FC<ResponsiveHeroBannerProps> = ({
   ctaButtonText = "Escríbenos",
   ctaButtonHref = "#contacto",
   badgeLabel = "Nuevo",
-  badgeText = "Kit de Lanzamiento + suscripción mensual",
-  title = "Tu negocio, listo",
-  titleLine2 = "para brillar en internet",
-  description = "Diseñamos tu página web, activamos tu SEO local y te entregamos tarjetas QR y NFC para reseñas en Google. Después, la administramos por ti cada mes.",
-  primaryButtonText = "Agendar reunión",
+  badgeText = "Tu marca completa, con entrega en 7 días",
+  title = "Lleva tu empresa",
+  titleLine2 = "al siguiente nivel.",
+  description = "Página web, QR llavero, tarjeta NFC y posicionamiento en Google, en un solo kit.",
+  primaryButtonText = "Quiero mi kit",
   primaryButtonHref = "#agenda",
-  secondaryButtonText = "Ver planes y precios",
+  secondaryButtonText = "Ver qué incluye",
   secondaryButtonHref = "#servicios",
   partnersTitle = "Negocios que ya confían en nosotros",
   partners = [],
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const reducedMotion = usePrefersReducedMotion();
 
   return (
     <section
       id="inicio"
-      className="w-full isolate min-h-screen overflow-hidden relative"
+      className="w-full isolate min-h-screen overflow-hidden relative bg-black"
     >
-      <Image
-        src={backgroundImageUrl}
-        alt=""
-        fill
-        priority
-        sizes="100vw"
-        className="object-cover"
-      />
-      {/* Overlay oscuro para que el texto siempre sea legible sobre la foto */}
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/80" />
+      {/* Fondo animado: decorativo, no interactivo y oculto a lectores de pantalla */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0">
+        <GatewayFlow
+          className="h-full w-full"
+          mode="dark"
+          speed={reducedMotion ? 0 : 1}
+          density={0.75}
+        />
+      </div>
+      {/* Viñeta central: mantiene legible el texto justo donde convergen las líneas */}
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0.72)_0%,rgba(0,0,0,0.4)_45%,rgba(0,0,0,0)_78%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/70" />
       <div className="pointer-events-none absolute inset-0 ring-1 ring-black/30" />
 
       <header className="z-20 xl:top-4 relative">
@@ -100,14 +119,22 @@ const ResponsiveHeroBanner: React.FC<ResponsiveHeroBannerProps> = ({
               <a
                 href="#inicio"
                 aria-label={logoText}
-                className="inline-flex items-center justify-center bg-center w-[100px] h-[40px] bg-cover rounded"
-                style={{ backgroundImage: `url(${logoUrl})` }}
-              />
+                className="inline-flex items-center"
+              >
+                <Image
+                  src={logoUrl}
+                  alt={logoText}
+                  width={592}
+                  height={146}
+                  priority
+                  className="h-8 w-auto sm:h-9"
+                />
+              </a>
             ) : (
               <a
                 href="#inicio"
                 aria-label={logoText}
-                className="text-3xl leading-none text-white [font-family:var(--font-signature)]"
+                className="text-2xl font-bold leading-none tracking-[0.2em] text-white font-sans"
               >
                 {logoText}
               </a>
@@ -197,7 +224,7 @@ const ResponsiveHeroBanner: React.FC<ResponsiveHeroBannerProps> = ({
 
             <h1 className="sm:text-5xl md:text-6xl lg:text-7xl leading-tight text-4xl text-white tracking-tight font-instrument-serif font-normal animate-fade-slide-in-2">
               {title}
-              <br className="hidden sm:block" />
+              <br className="hidden sm:block" />{" "}
               {titleLine2}
             </h1>
 

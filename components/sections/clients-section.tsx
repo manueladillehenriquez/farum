@@ -47,7 +47,7 @@ export function ClientsSection() {
 
           {/* Cupo para el próximo cliente: clicable, invita a ser el próximo logo */}
           <a
-            href={waLink("Hola By Manoel, quiero que mi negocio sea el próximo en la web.")}
+            href={waLink(siteConfig.whatsappMessages.nextClient)}
             target="_blank"
             rel="noopener noreferrer"
             className="group flex flex-col items-center gap-3 rounded-2xl p-4 text-muted-foreground transition-colors hover:bg-card hover:text-foreground"

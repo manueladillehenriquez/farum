@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Instrument_Serif, Alex_Brush } from "next/font/google";
+import { Inter, Instrument_Serif } from "next/font/google";
 import { siteConfig } from "@/lib/site-config";
 import "./globals.css";
 
@@ -16,32 +16,26 @@ const instrumentSerif = Instrument_Serif({
   display: "swap",
 });
 
-const alexBrush = Alex_Brush({
-  subsets: ["latin"],
-  weight: "400",
-  variable: "--alex-brush-font",
-  display: "swap",
-});
-
-// TODO: cuando conectes un dominio propio (ej. bymanoel.cl) a GitHub Pages,
-// reemplaza esta URL por la real.
+// TODO: cuando conectes un dominio propio a GitHub Pages, reemplaza esta
+// URL por la real (y actualiza también app/sitemap.ts y app/robots.ts).
 const siteUrl = "https://manueladillehenriquez.github.io/by-manoel";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: `${siteConfig.businessName} — Diseño web y SEO local para pymes en Santiago`,
+    default: `${siteConfig.businessName} — Web, QR, NFC y SEO local para pymes en Santiago`,
     template: `%s · ${siteConfig.businessName}`,
   },
   description: siteConfig.description,
   keywords: [
-    "administración web",
-    "diseño de páginas web",
+    "posicionamiento digital",
+    "página web para pymes",
+    "llavero código QR",
+    "tarjeta NFC",
     "tarjeta NFC reseñas Google",
-    "código QR",
     "SEO local Chile",
-    "páginas web para pymes",
     "diseño web para pymes Santiago",
+    "profesionalizar marca",
     "administración mensual de sitio web",
     "Providencia Santiago",
   ],
@@ -51,13 +45,13 @@ export const metadata: Metadata = {
     type: "website",
     locale: "es_CL",
     url: siteUrl,
-    title: `${siteConfig.businessName} — Diseño web y SEO local para pymes`,
+    title: `${siteConfig.businessName} — Lleva tu empresa al siguiente nivel`,
     description: siteConfig.description,
     siteName: siteConfig.businessName,
   },
   twitter: {
     card: "summary_large_image",
-    title: `${siteConfig.businessName} — Diseño web y SEO local para pymes`,
+    title: `${siteConfig.businessName} — Lleva tu empresa al siguiente nivel`,
     description: siteConfig.description,
   },
 };
@@ -74,6 +68,7 @@ const jsonLd = {
   name: siteConfig.businessName,
   description: siteConfig.description,
   url: siteUrl,
+  logo: `${siteUrl}/brand/farum-logo-vertical-black.png`,
   telephone: `+${siteConfig.whatsappNumber}`,
   priceRange: "$$",
   address: {
@@ -106,7 +101,7 @@ export default function RootLayout({
   return (
     <html
       lang="es"
-      className={`${inter.variable} ${instrumentSerif.variable} ${alexBrush.variable}`}
+      className={`${inter.variable} ${instrumentSerif.variable}`}
     >
       <body className="antialiased">
         <script

@@ -14,7 +14,7 @@ export function ContactSection() {
       // bundler, el objeto real puede venir en `mod.default` o en `mod`.
       const QRCode = mod.default ?? mod;
       QRCode.toDataURL(
-        waLink("Hola By Manoel, vi el código QR y quiero más información."),
+        waLink(siteConfig.whatsappMessages.qr),
         { width: 264, margin: 1, color: { dark: "#111318", light: "#ffffff" } }
       ).then((url) => {
         if (!cancelled) setQrDataUrl(url);
@@ -37,8 +37,8 @@ export function ContactSection() {
               Escríbenos directo por WhatsApp
             </h3>
             <p className="mt-3 max-w-md text-sm text-muted-foreground">
-              Te respondo yo mismo, el mismo día: resolvemos tus dudas,
-              elegimos el plan ideal y agendamos tu reunión.
+              Te respondemos el mismo día: resolvemos tus dudas, elegimos el
+              plan ideal y agendamos tu reunión.
             </p>
             <a
               href={waLink()}

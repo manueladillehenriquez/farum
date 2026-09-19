@@ -2,22 +2,21 @@
 @import "tw-animate-css";
 
 /* ------------------------------------------------------------------
-   Tema "By Manoel" — oscuro y moderno.
+   Tema "FARUM" — oscuro y moderno.
    Todos los colores/tipografías viven en estas variables: cambia
    acá para ajustar la identidad visual de todo el sitio.
    ------------------------------------------------------------------ */
 @theme inline {
   /* Las fuentes se auto-hospedan vía next/font (ver app/layout.tsx),
      que expone estas variables --inter-font / --instrument-serif-font
-     / --alex-brush-font en <html>. Acá solo las mapeamos a nombres
-     de utilidad de Tailwind. */
+     en <html>. Acá solo las mapeamos a nombres de utilidad de
+     Tailwind. */
   --font-sans: var(--inter-font), system-ui, sans-serif;
   --font-serif: var(--instrument-serif-font), Georgia, serif;
   /* El componente de hero usa la utilidad `font-instrument-serif`
      (en vez de `font-serif`), así que exponemos también ese nombre
      para que Tailwind genere la clase que realmente se usa. */
   --font-instrument-serif: var(--instrument-serif-font), Georgia, serif;
-  --font-signature: var(--alex-brush-font), cursive;
 
   --color-background: var(--bg-0);
   --color-foreground: var(--text-100);

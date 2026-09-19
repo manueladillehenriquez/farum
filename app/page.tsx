@@ -13,6 +13,8 @@ export default function Home() {
   return (
     <main>
       <ResponsiveHeroBanner
+        logoText={siteConfig.businessName}
+        logoUrl={siteConfig.brand.logoHorizontal}
         ctaButtonHref={waLink()}
         badgeLabel={siteConfig.hero.badgeLabel}
         badgeText={siteConfig.hero.badgeText}
@@ -20,6 +22,7 @@ export default function Home() {
         titleLine2={siteConfig.hero.titleLine2}
         description={siteConfig.hero.description}
         primaryButtonText={siteConfig.hero.primaryButtonText}
+        secondaryButtonText={siteConfig.hero.secondaryButtonText}
         partnersTitle={siteConfig.hero.partnersTitle}
         partners={siteConfig.clients.map((c) => ({
           name: c.name,
