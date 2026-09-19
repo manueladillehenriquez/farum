@@ -1,4 +1,12 @@
-import { Check, Globe, Nfc, QrCode, Search, type LucideIcon } from "lucide-react";
+import {
+  Check,
+  Gift,
+  Globe,
+  Nfc,
+  Search,
+  Smartphone,
+  type LucideIcon,
+} from "lucide-react";
 import { siteConfig, waLink } from "@/lib/site-config";
 
 // Traduce la clave `icon` de siteConfig.services.pillars a su ícono de lucide.
@@ -7,10 +15,14 @@ const PILLAR_ICONS: Record<
   LucideIcon
 > = {
   web: Globe,
-  qr: QrCode,
+  app: Smartphone,
   nfc: Nfc,
   seo: Search,
 };
+
+type Plan =
+  | (typeof siteConfig.pricing.packages)[number]
+  | (typeof siteConfig.pricing.subscriptions)[number];
 
 function PillarCard({
   pillar,
@@ -27,29 +39,29 @@ function PillarCard({
         {pillar.title}
       </h3>
       <p className="text-sm text-muted-foreground">{pillar.description}</p>
+      {pillar.tags.length > 0 && (
+        <div className="mt-auto flex flex-wrap gap-2">
+          {pillar.tags.map((tag) => (
+            <span
+              key={tag}
+              className="rounded-lg border border-border px-3 py-1 text-xs font-medium leading-snug text-foreground"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
 
-function PriceCard({
-  plan,
-  featured,
-}: {
-  plan: (typeof siteConfig.pricing)["launch" | "monthly"];
-  featured?: boolean;
-}) {
+function PriceCard({ plan }: { plan: Plan }) {
   return (
-    <div
-      className={`flex flex-col gap-6 rounded-2xl border p-8 ${
-        featured
-          ? "border-accent bg-card shadow-[0_0_0_1px_var(--whatsapp)]"
-          : "border-border bg-card"
-      }`}
-    >
+    <div className="flex flex-col gap-6 rounded-2xl border border-border bg-card p-8">
       <h3 className="font-instrument-serif text-2xl text-foreground">
         {plan.name}
       </h3>
-      <div className="flex items-baseline gap-2">
+      <div className="flex flex-wrap items-baseline gap-x-2">
         <span className="text-4xl font-semibold tracking-tight text-foreground">
           {plan.price}
         </span>
@@ -63,12 +75,49 @@ function PriceCard({
           </li>
         ))}
       </ul>
+      {plan.gift && (
+        <div className="mt-auto flex items-start gap-3 rounded-xl border border-accent/30 bg-accent/10 p-4">
+          <Gift className="mt-0.5 h-5 w-5 flex-none text-accent" />
+          <div>
+            <p className="text-sm font-semibold text-foreground">
+              {plan.gift.title}
+            </p>
+            <p className="mt-0.5 text-xs text-muted-foreground">
+              {plan.gift.description}
+            </p>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function PricingGroup({
+  title,
+  description,
+  children,
+  className,
+}: {
+  title: string;
+  description: string;
+  children: React.ReactNode;
+  className: string;
+}) {
+  return (
+    <div className="mt-16">
+      <div className="mx-auto mb-8 max-w-xl text-center">
+        <h3 className="font-instrument-serif text-2xl text-foreground sm:text-3xl">
+          {title}
+        </h3>
+        <p className="mt-2 text-sm text-muted-foreground">{description}</p>
+      </div>
+      <div className={className}>{children}</div>
     </div>
   );
 }
 
 export function ServicesSection() {
-  const { services } = siteConfig;
+  const { services, pricing } = siteConfig;
 
   return (
     <section id="servicios" className="border-t border-border bg-background py-24">
@@ -89,10 +138,25 @@ export function ServicesSection() {
           ))}
         </div>
 
-        <div className="mt-16 grid gap-6 sm:grid-cols-2">
-          <PriceCard plan={siteConfig.pricing.launch} featured />
-          <PriceCard plan={siteConfig.pricing.monthly} />
-        </div>
+        <PricingGroup
+          title={pricing.packagesTitle}
+          description={pricing.packagesDescription}
+          className="grid gap-6 lg:grid-cols-3"
+        >
+          {pricing.packages.map((plan) => (
+            <PriceCard key={plan.name} plan={plan} />
+          ))}
+        </PricingGroup>
+
+        <PricingGroup
+          title={pricing.subscriptionsTitle}
+          description={pricing.subscriptionsDescription}
+          className="mx-auto grid max-w-3xl gap-6 sm:grid-cols-2"
+        >
+          {pricing.subscriptions.map((plan) => (
+            <PriceCard key={plan.name} plan={plan} />
+          ))}
+        </PricingGroup>
 
         <div className="mt-10 text-center">
           <a

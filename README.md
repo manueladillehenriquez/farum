@@ -1,9 +1,12 @@
 # FARUM — Next.js + TypeScript + Tailwind + shadcn
 
-Sitio de **FARUM**: ayudamos a pymes a llevar su empresa al siguiente nivel con
-un kit que reúne la **página web de su marca**, un **QR llavero**, una
-**tarjeta NFC** y **posicionamiento digital** (SEO local en Google), más un plan
-de mantención mensual.
+Sitio de **FARUM**: ayudamos a pymes a llevar su empresa al siguiente nivel.
+La oferta son tres paquetes de pago único: **Inicial** (dominio + hosting +
+página web + indexación en Google, con una tarjeta NFC de regalo), **Avanzado**
+(suma 2 tarjetas NFC y una campaña de Google Ads) y **Full Pro** (Avanzado +
+desarrollo de la App). Además, dos suscripciones mensuales de mantenimiento
+(página, o página + App). Todos los precios llevan IVA incluido y están en
+`lib/site-config.ts`.
 
 Stack: **Next.js 15 (App Router) + TypeScript + Tailwind CSS v4**, con la
 estructura de carpetas de **shadcn** (`/components/ui`, `/lib/utils.ts`,
@@ -61,7 +64,8 @@ sirve desde la raíz.
 │   └── robots.ts          /robots.txt
 ├── components/
 │   ├── ui/
-│   │   ├── responsive-hero-banner.tsx   Hero (header, titular, CTA, clientes)
+│   │   ├── responsive-hero-banner.tsx   Hero (header, titular, CTA)
+│   │   ├── rotating-word.tsx            Palabra rotativa del titular
 │   │   └── gateway-flow.tsx             Fondo animado del hero
 │   ├── sections/
 │   │   ├── services-section.tsx   4 pilares + precios

@@ -17,8 +17,8 @@ export function SiteFooter() {
               className="h-24 w-auto"
             />
             <p className="mt-4 text-sm text-muted-foreground">
-              {siteConfig.tagline}: página web, QR llavero, tarjeta NFC y
-              posicionamiento digital, todo en un solo kit.
+              {siteConfig.tagline}: página web con dominio y hosting, tarjetas
+              NFC, Google Ads y tu propia App.
             </p>
           </div>
 

@@ -2,23 +2,25 @@ import Image from "next/image";
 import { siteConfig, waLink } from "@/lib/site-config";
 
 export function ClientsSection() {
+  const { clientsSection } = siteConfig;
+
   return (
     <section id="clientes" className="border-t border-border bg-card/40 py-24">
       <div className="mx-auto max-w-5xl px-6">
         <div className="mx-auto mb-14 max-w-xl text-center">
           <p className="text-sm font-medium uppercase tracking-widest text-accent">
-            Nuestro trabajo
+            {clientsSection.eyebrow}
           </p>
           <h2 className="mt-3 font-instrument-serif text-3xl text-foreground sm:text-4xl">
-            Negocios que ya trabajan con nosotros
+            {clientsSection.title}
           </h2>
           <p className="mt-4 text-muted-foreground">
-            Negocios reales que ya confían en {siteConfig.businessName} para
-            su presencia digital.
+            {clientsSection.description}
           </p>
         </div>
 
-        <div className="mx-auto grid max-w-2xl grid-cols-2 gap-6 sm:grid-cols-3">
+        {/* 3 clientes + el cupo del próximo: 2x2 en móvil, 4 en una fila desde tablet */}
+        <div className="mx-auto grid max-w-4xl grid-cols-2 gap-6 md:grid-cols-4">
           {siteConfig.clients.map((client) => (
             <a
               key={client.name}
@@ -27,7 +29,12 @@ export function ClientsSection() {
               rel="noopener noreferrer"
               className="group flex flex-col items-center gap-3 rounded-2xl p-4 transition-colors hover:bg-card"
             >
-              <span className="flex h-28 w-28 items-center justify-center overflow-hidden rounded-full border-4 border-card bg-white shadow-lg shadow-black/30">
+              {/* El fondo del círculo coincide con el del logo (`logoBg`) para
+                  que el borde suavizado del PNG no deje una línea de otro color. */}
+              <span
+                className="flex h-28 w-28 items-center justify-center overflow-hidden rounded-full border-4 border-card shadow-lg shadow-black/30"
+                style={{ backgroundColor: client.logoBg }}
+              >
                 <Image
                   src={client.logo}
                   alt={client.name}
@@ -36,11 +43,11 @@ export function ClientsSection() {
                   className="h-full w-full object-cover"
                 />
               </span>
-              <span className="text-sm font-medium text-foreground">
+              <span className="text-center text-sm font-medium text-foreground">
                 {client.name}
               </span>
-              <span className="text-xs text-muted-foreground">
-                {client.url.replace("https://www.", "")}
+              <span className="text-center text-xs text-muted-foreground">
+                {client.displayUrl}
               </span>
             </a>
           ))}

@@ -23,14 +23,17 @@ const siteUrl = "https://manueladillehenriquez.github.io/farum";
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: `${siteConfig.businessName} — Web, QR, NFC y SEO local para pymes en Santiago`,
+    default: `${siteConfig.businessName} — Página web y tarjeta NFC para pymes en Santiago`,
     template: `%s · ${siteConfig.businessName}`,
   },
   description: siteConfig.description,
   keywords: [
     "posicionamiento digital",
     "página web para pymes",
-    "llavero código QR",
+    "dominio y hosting",
+    "indexación en Google",
+    "campaña Google Ads",
+    "desarrollo de App",
     "tarjeta NFC",
     "tarjeta NFC reseñas Google",
     "SEO local Chile",
@@ -45,13 +48,13 @@ export const metadata: Metadata = {
     type: "website",
     locale: "es_CL",
     url: siteUrl,
-    title: `${siteConfig.businessName} — Lleva tu empresa al siguiente nivel`,
+    title: `${siteConfig.businessName} — Tu empresa al siguiente nivel`,
     description: siteConfig.description,
     siteName: siteConfig.businessName,
   },
   twitter: {
     card: "summary_large_image",
-    title: `${siteConfig.businessName} — Lleva tu empresa al siguiente nivel`,
+    title: `${siteConfig.businessName} — Tu empresa al siguiente nivel`,
     description: siteConfig.description,
   },
 };

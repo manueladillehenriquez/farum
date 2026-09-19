@@ -19,16 +19,12 @@ export default function Home() {
         badgeLabel={siteConfig.hero.badgeLabel}
         badgeText={siteConfig.hero.badgeText}
         title={siteConfig.hero.title}
+        rotatingWords={siteConfig.hero.rotatingWords}
+        rotatingInterval={siteConfig.hero.rotatingInterval}
         titleLine2={siteConfig.hero.titleLine2}
         description={siteConfig.hero.description}
         primaryButtonText={siteConfig.hero.primaryButtonText}
         secondaryButtonText={siteConfig.hero.secondaryButtonText}
-        partnersTitle={siteConfig.hero.partnersTitle}
-        partners={siteConfig.clients.map((c) => ({
-          name: c.name,
-          logoUrl: c.logo,
-          href: c.url,
-        }))}
       />
       <ServicesSection />
       <ClientsSection />

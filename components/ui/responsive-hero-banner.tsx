@@ -4,17 +4,12 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { ArrowRight, ArrowUpRight, Menu, X } from "lucide-react";
 import GatewayFlow from "@/components/ui/gateway-flow";
+import { RotatingWord } from "@/components/ui/rotating-word";
 
 interface NavLink {
   label: string;
   href: string;
   isActive?: boolean;
-}
-
-interface Partner {
-  name: string;
-  logoUrl: string;
-  href: string;
 }
 
 interface ResponsiveHeroBannerProps {
@@ -27,15 +22,19 @@ interface ResponsiveHeroBannerProps {
   ctaButtonHref?: string;
   badgeText?: string;
   badgeLabel?: string;
+  /** Inicio del titular, antes de la palabra rotativa (ej. "Tu"). */
   title?: string;
+  /** Palabras que se alternan en el titular (ej. empresa / negocio / pyme). */
+  rotatingWords?: readonly string[];
+  /** Milisegundos que permanece cada palabra rotativa. */
+  rotatingInterval?: number;
+  /** Fin del titular, después de la palabra rotativa. */
   titleLine2?: string;
   description?: string;
   primaryButtonText?: string;
   primaryButtonHref?: string;
   secondaryButtonText?: string;
   secondaryButtonHref?: string;
-  partnersTitle?: string;
-  partners?: Partner[];
 }
 
 /** Detecta si el usuario pidió reducir animaciones en su sistema. */
@@ -64,7 +63,9 @@ function usePrefersReducedMotion() {
  *   respaldo en texto.
  * - Se agregó el panel de menú móvil: el botón hamburguesa existía
  *   en el original pero no desplegaba ningún contenido.
- * - `partners` requiere `name` (para el `alt` de la imagen).
+ * - El titular incluye una palabra rotativa (`RotatingWord`); el <h1>
+ *   conserva la frase completa como texto solo para lectores de pantalla
+ *   y buscadores.
  * ------------------------------------------------------------------
  */
 const ResponsiveHeroBanner: React.FC<ResponsiveHeroBannerProps> = ({
@@ -80,15 +81,15 @@ const ResponsiveHeroBanner: React.FC<ResponsiveHeroBannerProps> = ({
   ctaButtonHref = "#contacto",
   badgeLabel = "Nuevo",
   badgeText = "Tu marca completa, con entrega en 7 días",
-  title = "Lleva tu empresa",
+  title = "Tu",
+  rotatingWords = ["empresa", "negocio", "pyme"],
+  rotatingInterval = 1000,
   titleLine2 = "al siguiente nivel.",
-  description = "Página web, QR llavero, tarjeta NFC y posicionamiento en Google, en un solo kit.",
-  primaryButtonText = "Quiero mi kit",
+  description = "Obtén tu Paquete Inicial hoy y lleva tu tarjeta NFC de regalo",
+  primaryButtonText = "Quiero mi Paquete Inicial",
   primaryButtonHref = "#agenda",
   secondaryButtonText = "Ver qué incluye",
   secondaryButtonHref = "#servicios",
-  partnersTitle = "Negocios que ya confían en nosotros",
-  partners = [],
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const reducedMotion = usePrefersReducedMotion();
@@ -223,9 +224,16 @@ const ResponsiveHeroBanner: React.FC<ResponsiveHeroBannerProps> = ({
             </div>
 
             <h1 className="sm:text-5xl md:text-6xl lg:text-7xl leading-tight text-4xl text-white tracking-tight font-instrument-serif font-normal animate-fade-slide-in-2">
-              {title}
-              <br className="hidden sm:block" />{" "}
-              {titleLine2}
+              {/* Frase completa para lectores de pantalla y buscadores; la
+                  versión animada de abajo es solo visual (aria-hidden). */}
+              <span className="sr-only">
+                {`${title} ${rotatingWords[0]} ${titleLine2}`}
+              </span>
+              <span aria-hidden="true">
+                {title} <RotatingWord words={rotatingWords} interval={rotatingInterval} />
+                <br className="hidden sm:block" />{" "}
+                {titleLine2}
+              </span>
             </h1>
 
             <p className="sm:text-lg animate-fade-slide-in-3 text-base text-white/80 max-w-2xl mt-6 mx-auto">
@@ -248,34 +256,6 @@ const ResponsiveHeroBanner: React.FC<ResponsiveHeroBannerProps> = ({
               </a>
             </div>
           </div>
-
-          {partners.length > 0 && (
-            <div className="mx-auto mt-20 max-w-5xl">
-              <p className="animate-fade-slide-in-1 text-sm text-white/70 text-center">
-                {partnersTitle}
-              </p>
-              <div className="grid grid-cols-2 sm:grid-cols-3 animate-fade-slide-in-2 text-white/70 mt-6 items-center justify-items-center gap-6">
-                {partners.map((partner, index) => (
-                  <a
-                    key={index}
-                    href={partner.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex h-16 w-32 items-center justify-center rounded-xl bg-white/95 p-2 opacity-90 hover:opacity-100 transition-opacity"
-                  >
-                    {/* Logos reales de clientes, con fondo blanco para que se vean bien */}
-                    <Image
-                      src={partner.logoUrl}
-                      alt={partner.name}
-                      width={112}
-                      height={56}
-                      className="h-full w-full object-contain"
-                    />
-                  </a>
-                ))}
-              </div>
-            </div>
-          )}
         </div>
       </div>
     </section>
