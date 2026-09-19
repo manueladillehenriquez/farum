@@ -10,6 +10,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
     },
     // TODO: actualiza esto cuando conectes un dominio propio.
-    sitemap: "https://manueladillehenriquez.github.io/by-manoel/sitemap.xml",
+    sitemap: "https://manueladillehenriquez.github.io/farum/sitemap.xml",
   };
 }

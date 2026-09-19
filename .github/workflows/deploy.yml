@@ -40,7 +40,7 @@ jobs:
           # bien bajo el subpath del repo (ver lib/site-config.ts). Debe
           # coincidir con el nombre del repo. Si más adelante conectas
           # un dominio propio, borra esta línea.
-          NEXT_PUBLIC_BASE_PATH: /by-manoel
+          NEXT_PUBLIC_BASE_PATH: /farum
 
       - name: Setup Pages
         uses: actions/configure-pages@v5

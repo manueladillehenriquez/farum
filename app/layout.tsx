@@ -18,7 +18,7 @@ const instrumentSerif = Instrument_Serif({
 
 // TODO: cuando conectes un dominio propio a GitHub Pages, reemplaza esta
 // URL por la real (y actualiza también app/sitemap.ts y app/robots.ts).
-const siteUrl = "https://manueladillehenriquez.github.io/by-manoel";
+const siteUrl = "https://manueladillehenriquez.github.io/farum";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

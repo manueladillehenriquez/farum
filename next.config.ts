@@ -11,9 +11,10 @@ import type { NextConfig } from "next";
 // Pages, quita el basePath/assetPrefix de abajo: un dominio propio
 // sirve el sitio desde la raíz, igual que un hosting tradicional.
 // OJO: `repoName` debe coincidir con el nombre real del repo en GitHub
-// (hoy sigue siendo el original); si lo renombras, cámbialo acá, en
-// NEXT_PUBLIC_BASE_PATH del workflow y en la URL de layout/sitemap/robots.
-const repoName = "by-manoel";
+// (https://github.com/manueladillehenriquez/farum). Si lo renombras,
+// cámbialo acá, en NEXT_PUBLIC_BASE_PATH del workflow y en la URL de
+// app/layout.tsx, app/sitemap.ts y app/robots.ts.
+const repoName = "farum";
 const isGithubActionsBuild = process.env.GITHUB_ACTIONS === "true";
 
 const nextConfig: NextConfig = {

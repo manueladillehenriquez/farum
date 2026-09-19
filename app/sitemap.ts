@@ -7,7 +7,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
       // TODO: actualiza esto cuando conectes un dominio propio.
-      url: "https://manueladillehenriquez.github.io/by-manoel/",
+      url: "https://manueladillehenriquez.github.io/farum/",
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 1,

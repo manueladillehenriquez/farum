@@ -105,8 +105,9 @@ verán nítidos a cualquier tamaño.
   navegador y no hay backend compartido. Sirve porque cada reserva llega por
   WhatsApp y se confirma a mano, pero no evita que dos personas en
   dispositivos distintos pidan la misma hora.
-- **Repo y URL**: el repositorio de GitHub conserva su nombre original, por lo
-  que la URL publicada y `basePath` (en `next.config.ts`, el workflow,
-  `app/layout.tsx`, `app/sitemap.ts` y `app/robots.ts`) todavía apuntan a él.
-  Si lo renombras o conectas un dominio propio, hay que actualizar esos
-  cinco lugares.
+- **Repo y URL**: el repositorio es `manueladillehenriquez/farum` y el sitio se
+  publica en `https://manueladillehenriquez.github.io/farum/`. Ese nombre
+  aparece en cinco lugares que deben mantenerse iguales: `next.config.ts`
+  (`repoName`), el workflow (`NEXT_PUBLIC_BASE_PATH`), `app/layout.tsx`
+  (`siteUrl`), `app/sitemap.ts` y `app/robots.ts`. Si renombras el repo otra
+  vez o conectas un dominio propio, hay que actualizar esos cinco lugares.
