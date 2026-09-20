@@ -74,7 +74,7 @@ sirve desde la raíz.
 │   │   ├── faq-section.tsx        Preguntas frecuentes
 │   │   └── contact-section.tsx    WhatsApp + QR + aviso de seguridad
 │   ├── site-footer.tsx
-│   ├── site-signature.tsx  Sello de autoría (logo, esquina inferior derecha)
+│   ├── site-signature.tsx  Firma "By Farum" (esquina inferior derecha)
 │   └── whatsapp-fab.tsx    Botón flotante de WhatsApp
 ├── lib/
 │   ├── site-config.ts      ⭐ Contenido y datos del negocio

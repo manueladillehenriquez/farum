@@ -1,27 +1,16 @@
-import Image from "next/image";
-import { siteConfig } from "@/lib/site-config";
-
 /**
- * Pequeño sello de autoría, fijo en la esquina inferior derecha en todas
- * las secciones (igual que el botón de WhatsApp, pero más arriba para no
- * pisarlo). Es el logo horizontal de {businessName}, sutil y semitransparente:
- * funciona como garantía visual de que el sitio es realmente de la marca,
- * reforzando el aviso antifraude de la sección de contacto.
+ * Firma "By Farum", fija en la esquina inferior derecha. Es la misma marca
+ * que llevan el resto de las webs de Farum: texto pequeño en negrita cursiva
+ * sobre una cinta oscura semitransparente pegada a la esquina, justo debajo
+ * del botón de WhatsApp para no pisarlo.
  */
 export function SiteSignature() {
   return (
-    <a
-      href="#inicio"
-      aria-label={`${siteConfig.businessName} — sitio oficial`}
-      className="fixed bottom-24 right-5 z-40 opacity-40 transition-opacity hover:opacity-80"
+    <div
+      aria-hidden="true"
+      className="pointer-events-none fixed bottom-0 right-0 z-[9999] select-none rounded-tl-lg bg-[rgba(15,15,20,0.55)] py-0.5 pl-[11px] pr-2.5 text-[11px] font-bold italic leading-[14px] tracking-[0.02em] text-white backdrop-blur-[4px]"
     >
-      <Image
-        src={siteConfig.brand.logoHorizontal}
-        alt={siteConfig.businessName}
-        width={592}
-        height={146}
-        className="h-5 w-auto"
-      />
-    </a>
+      By Farum
+    </div>
   );
 }

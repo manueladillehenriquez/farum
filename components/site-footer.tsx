@@ -64,12 +64,11 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <div className="flex flex-wrap items-center justify-between gap-2 border-t border-border pt-6 text-xs text-muted-foreground">
+        <div className="border-t border-border pt-6 text-xs text-muted-foreground">
           <span>
             © {year} {siteConfig.businessName} · Cumplimos Ley 21.719 de
             Protección de Datos Personales
           </span>
-          <span>Hecho por {siteConfig.businessName}</span>
         </div>
       </div>
     </footer>
