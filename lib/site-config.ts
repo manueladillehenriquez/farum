@@ -19,13 +19,12 @@ const MONTHLY_PRICE = "$9.990"; // Suscripción mensual: mantenimiento de la pá
 const MONTHLY_APP_PRICE = "$49.990"; // Suscripción mensual: página + App
 const DOMAIN_TRANSFER_PRICE = "$19.990";
 
-// Cuando el sitio se publica en GitHub Pages como repo de proyecto
-// (https://usuario.github.io/<repo>/), las imágenes de /public
-// necesitan este prefijo — `next/image` con `images.unoptimized`
-// (requerido para el export estático) NO lo agrega solo. El workflow
-// de GitHub Actions (.github/workflows/deploy.yml) define esta
-// variable al buildear; en local o en un hosting con dominio propio
-// queda vacía y las rutas se sirven desde la raíz, como siempre.
+// Prefijo para las rutas de /public. Con el dominio propio (www.farum.cl)
+// el sitio se sirve desde la raíz, así que queda vacío; se deja el
+// mecanismo por si en algún momento vuelve a publicarse como repo de
+// proyecto de GitHub Pages (https://usuario.github.io/<repo>/), donde
+// `next/image` con `images.unoptimized` (requerido para el export
+// estático) no agrega el prefijo solo.
 const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
 export const siteConfig = {

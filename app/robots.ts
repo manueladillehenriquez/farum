@@ -9,7 +9,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
     },
-    // TODO: actualiza esto cuando conectes un dominio propio.
-    sitemap: "https://manueladillehenriquez.github.io/farum/sitemap.xml",
+    sitemap: "https://www.farum.cl/sitemap.xml",
   };
 }

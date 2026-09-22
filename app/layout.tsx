@@ -26,9 +26,7 @@ const spaceGrotesk = Space_Grotesk({
   display: "swap",
 });
 
-// TODO: cuando conectes un dominio propio a GitHub Pages, reemplaza esta
-// URL por la real (y actualiza también app/sitemap.ts y app/robots.ts).
-const siteUrl = "https://manueladillehenriquez.github.io/farum";
+const siteUrl = "https://www.farum.cl";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

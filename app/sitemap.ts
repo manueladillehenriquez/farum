@@ -6,8 +6,7 @@ export const dynamic = "force-static";
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
-      // TODO: actualiza esto cuando conectes un dominio propio.
-      url: "https://manueladillehenriquez.github.io/farum/",
+      url: "https://www.farum.cl/",
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 1,

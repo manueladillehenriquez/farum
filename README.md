@@ -37,9 +37,9 @@ basta con editar ese archivo.
 ### GitHub Pages (lo que está configurado)
 
 Cada `push` a `main` dispara [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml),
-que hace el build estático y lo publica. Como el sitio se sirve desde un
-subpath del repo, el workflow define `NEXT_PUBLIC_BASE_PATH` y
-`next.config.ts` activa `basePath` solo en el build de GitHub Actions.
+que hace el build estático y lo publica en `www.farum.cl` (dominio propio,
+conectado vía Cloudflare — ver [`public/CNAME`](public/CNAME) y la
+configuración de "Custom domain" en Settings → Pages del repo).
 
 ### Hosting tradicional (cPanel, Hostinger, etc.)
 
@@ -48,8 +48,7 @@ npm run build
 ```
 
 Genera la carpeta `out/`. Sube **el contenido** de `out/` (no la carpeta) a
-la raíz de tu hosting. En local el `basePath` queda vacío, así que ese build
-sirve desde la raíz.
+la raíz de tu hosting.
 
 ## Estructura
 
@@ -109,9 +108,9 @@ verán nítidos a cualquier tamaño.
   navegador y no hay backend compartido. Sirve porque cada reserva llega por
   WhatsApp y se confirma a mano, pero no evita que dos personas en
   dispositivos distintos pidan la misma hora.
-- **Repo y URL**: el repositorio es `manueladillehenriquez/farum` y el sitio se
-  publica en `https://manueladillehenriquez.github.io/farum/`. Ese nombre
-  aparece en cinco lugares que deben mantenerse iguales: `next.config.ts`
-  (`repoName`), el workflow (`NEXT_PUBLIC_BASE_PATH`), `app/layout.tsx`
-  (`siteUrl`), `app/sitemap.ts` y `app/robots.ts`. Si renombras el repo otra
-  vez o conectas un dominio propio, hay que actualizar esos cinco lugares.
+- **Repo y URL**: el repositorio es `manueladillehenriquez/farum`, publicado
+  en GitHub Pages y servido en `https://www.farum.cl/` (DNS en Cloudflare,
+  con `www` apuntando por CNAME a `manueladillehenriquez.github.io`). Si
+  alguna vez cambias de dominio, hay que actualizar `public/CNAME`,
+  `app/layout.tsx` (`siteUrl`), `app/sitemap.ts`, `app/robots.ts` y el
+  "Custom domain" en Settings → Pages del repo.
