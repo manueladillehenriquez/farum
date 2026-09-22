@@ -56,6 +56,12 @@ export function SiteFooter() {
                 >
                   WhatsApp
                 </a>
+                <a
+                  href={`mailto:${siteConfig.contactEmail}`}
+                  className="text-muted-foreground hover:text-foreground"
+                >
+                  {siteConfig.contactEmail}
+                </a>
                 <span className="text-muted-foreground">
                   {siteConfig.address.street}, {siteConfig.address.comuna}
                 </span>

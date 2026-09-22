@@ -13,10 +13,10 @@ const BUSINESS_NAME = "FARUM";
 // cards, la FAQ y los mensajes, sin repetir el número a mano.
 const INITIAL_PRICE = "$39.990"; // Paquete Inicial (pago único)
 const ADVANCED_PRICE = "$59.990"; // Paquete Avanzado (pago único)
-const FULL_PRO_PRICE = "$269.990"; // Paquete Full Pro = Avanzado + App (pago único)
-const APP_PRICE = "$249.990"; // Desarrollo de la App contratado por separado
+const FULL_PRO_PRICE = "$189.900"; // Paquete Full Pro = Avanzado + App (pago único)
+const APP_PRICE = "$159.990"; // Desarrollo de la App contratado por separado
 const MONTHLY_PRICE = "$9.990"; // Suscripción mensual: mantenimiento de la página
-const MONTHLY_APP_PRICE = "$69.990"; // Suscripción mensual: página + App
+const MONTHLY_APP_PRICE = "$49.990"; // Suscripción mensual: página + App
 const DOMAIN_TRANSFER_PRICE = "$19.990";
 
 // Cuando el sitio se publica en GitHub Pages como repo de proyecto
@@ -116,6 +116,8 @@ export const siteConfig = {
     qr: `Hola ${BUSINESS_NAME}, vi el código QR y quiero más información.`,
   },
 
+  contactEmail: "farum.cl@gmail.com",
+
   address: {
     street: "José Miguel Infante 1415",
     comuna: "Providencia",
@@ -170,7 +172,12 @@ export const siteConfig = {
         price: FULL_PRO_PRICE,
         note: "pago único · IVA incluido",
         items: [
-          "Todo lo del Paquete Avanzado",
+          "Dominio: la dirección de tu página en internet",
+          "Hosting: el espacio donde vive tu página en internet",
+          "Página web de tu marca: diseño y desarrollo",
+          "Indexación en Google: tu página registrada para que Google la encuentre",
+          "2 tarjetas NFC: Contacto y Conectividad",
+          "Campaña de Google Ads: la inversión publicitaria la pagamos nosotros",
           "Desarrollo de tu App, lista para descargar en App Store y Play Store",
         ],
         gift: null,
@@ -240,6 +247,38 @@ export const siteConfig = {
       logoBg: "#ffffff",
     },
   ],
+
+  // Sección "¿Por qué elegirnos?": sellos de garantía bajo la de clientes.
+  // `icon` es una clave que components/sections/why-us-section.tsx traduce
+  // al ícono de lucide correspondiente (mismo patrón que `services.pillars`).
+  whyUsSection: {
+    eyebrow: "Garantías",
+    title: "¿Por qué elegirnos?",
+    description:
+      "Trabajamos con reglas claras, de principio a fin: esto es lo que te garantizamos.",
+    badges: [
+      {
+        icon: "payments",
+        label: "Pagos 100% seguros",
+      },
+      {
+        icon: "clients",
+        label: "+10 clientes activos",
+      },
+      {
+        icon: "invoice",
+        label: "Boleta o factura",
+      },
+      {
+        icon: "team",
+        label: "Equipo de profesionales especializados",
+      },
+      {
+        icon: "support",
+        label: "Asistencia 24/7",
+      },
+    ],
+  },
 
   faq: [
     {

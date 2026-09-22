@@ -163,7 +163,7 @@ export function ServicesSection() {
             href={waLink(siteConfig.whatsappMessages.quote)}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-medium text-accent-foreground transition-colors hover:bg-[var(--whatsapp-dark)]"
+            className="inline-flex items-center gap-2 rounded-full bg-[var(--whatsapp)] px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-[var(--whatsapp-dark)]"
           >
             Cotizar por WhatsApp
           </a>

@@ -260,7 +260,7 @@ export function BookingSection() {
                 <button
                   type="button"
                   onClick={handleConfirm}
-                  className="mt-1 inline-flex items-center justify-center gap-2 rounded-full bg-accent px-5 py-3 text-sm font-medium text-accent-foreground hover:bg-[var(--whatsapp-dark)]"
+                  className="mt-1 inline-flex items-center justify-center gap-2 rounded-full bg-[var(--whatsapp)] px-5 py-3 text-sm font-medium text-white hover:bg-[var(--whatsapp-dark)]"
                 >
                   Confirmar por WhatsApp
                 </button>

@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { ShieldCheck } from "lucide-react";
 import { siteConfig, waLink } from "@/lib/site-config";
 
 export function ContactSection() {
@@ -44,7 +43,7 @@ export function ContactSection() {
               href={waLink()}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-6 inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-medium text-accent-foreground hover:bg-[var(--whatsapp-dark)]"
+              className="mt-6 inline-flex items-center gap-2 rounded-full bg-[var(--whatsapp)] px-6 py-3 text-sm font-medium text-white hover:bg-[var(--whatsapp-dark)]"
             >
               Abrir WhatsApp
             </a>
@@ -62,26 +61,6 @@ export function ContactSection() {
             <span className="text-xs font-bold text-neutral-900">
               Escanea y escríbenos
             </span>
-          </div>
-        </div>
-
-        <div className="mt-6 flex gap-4 rounded-2xl border-l-4 border-accent bg-card p-6">
-          <ShieldCheck className="mt-0.5 h-5 w-5 flex-none text-accent" />
-          <div className="text-sm text-muted-foreground">
-            <strong className="mb-1.5 block font-semibold text-foreground">
-              Cuida tu compra: solo somos nosotros.
-            </strong>
-            Por tu seguridad, {siteConfig.businessName} solo contacta, cotiza
-            y confirma citas desde este número oficial de WhatsApp:{" "}
-            <strong className="text-foreground">
-              {siteConfig.whatsappNumberDisplay}
-            </strong>
-            . No pedimos pagos por adelantado a otras cuentas, otros números o
-            links externos, ni solicitamos tus claves o datos bancarios por
-            chat. Si alguien te escribe a nombre de &ldquo;{siteConfig.businessName}
-            &rdquo; desde otro número, no es nuestro y podría tratarse de una
-            suplantación: verifica siempre acá antes de pagar o entregar
-            información.
           </div>
         </div>
       </div>

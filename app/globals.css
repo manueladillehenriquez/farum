@@ -17,6 +17,10 @@
      (en vez de `font-serif`), así que exponemos también ese nombre
      para que Tailwind genere la clase que realmente se usa. */
   --font-instrument-serif: var(--instrument-serif-font), Georgia, serif;
+  /* Tipografía display para la palabra rotativa del hero (ver
+     RotatingWord): distinta de la serif del titular y de la sans del
+     resto del texto, para que la palabra destaque. */
+  --font-space-grotesk: var(--space-grotesk-font), system-ui, sans-serif;
 
   --color-background: var(--bg-0);
   --color-foreground: var(--text-100);
@@ -25,7 +29,7 @@
   --color-muted: var(--bg-100);
   --color-muted-foreground: var(--text-300);
   --color-border: var(--bg-300);
-  --color-accent: var(--whatsapp);
+  --color-accent: var(--brand);
   --color-accent-foreground: #ffffff;
 }
 
@@ -38,6 +42,13 @@
   --text-200: #e4e4e7;
   --text-300: #a1a1aa;
   --text-400: #71717a;
+  /* Azul de marca: color de acento de todo el sitio (eyebrows, íconos,
+     bordes activos, sellos de garantía, etc.). El verde queda reservado
+     solo para WhatsApp — ver `--whatsapp` y los `bg-[var(--whatsapp)]`
+     explícitos en whatsapp-fab.tsx, contact-section.tsx,
+     booking-section.tsx y services-section.tsx. */
+  --brand: #3b82f6;
+  --brand-dark: #2563eb;
   --whatsapp: #25d366;
   --whatsapp-dark: #1da851;
   --radius: 0.5rem;

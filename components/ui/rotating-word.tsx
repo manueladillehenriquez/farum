@@ -7,6 +7,12 @@ interface RotatingWordProps {
   words: readonly string[];
   /** Milisegundos que permanece cada palabra. */
   interval?: number;
+  /**
+   * Clases para tipografía/color de las palabras (ej. mayúscula, fuente
+   * y color distintos al resto del titular, para que destaquen). Se
+   * aplican al contenedor, así que las hereda cada palabra.
+   */
+  wordClassName?: string;
 }
 
 /**
@@ -25,7 +31,11 @@ interface RotatingWordProps {
  *   lectores de pantalla y buscadores por otro lado (ver el <h1> del hero).
  * ------------------------------------------------------------------
  */
-export function RotatingWord({ words, interval = 1000 }: RotatingWordProps) {
+export function RotatingWord({
+  words,
+  interval = 1000,
+  wordClassName = "",
+}: RotatingWordProps) {
   const [index, setIndex] = useState(0);
   const [reducedMotion, setReducedMotion] = useState(false);
 
@@ -55,7 +65,10 @@ export function RotatingWord({ words, interval = 1000 }: RotatingWordProps) {
     // `justify-items-start` + `text-left`: el titular es `text-center`, y sin esto
     // las palabras más cortas se centran en el ancho reservado y dejan un hueco
     // entre "tu" y la palabra.
-    <span className="inline-grid justify-items-start text-left" aria-hidden="true">
+    <span
+      className={`inline-grid justify-items-start text-left ${wordClassName}`}
+      aria-hidden="true"
+    >
       {words.map((word, i) => {
         // La activa se ve; la que acaba de salir sube y se desvanece;
         // las que esperan quedan abajo, listas para entrar desde ahí.

@@ -1,6 +1,7 @@
 import ResponsiveHeroBanner from "@/components/ui/responsive-hero-banner";
 import { ServicesSection } from "@/components/sections/services-section";
 import { ClientsSection } from "@/components/sections/clients-section";
+import { WhyUsSection } from "@/components/sections/why-us-section";
 import { BookingSection } from "@/components/sections/booking-section";
 import { FaqSection } from "@/components/sections/faq-section";
 import { ContactSection } from "@/components/sections/contact-section";
@@ -28,6 +29,7 @@ export default function Home() {
       />
       <ServicesSection />
       <ClientsSection />
+      <WhyUsSection />
       <BookingSection />
       <FaqSection />
       <ContactSection />

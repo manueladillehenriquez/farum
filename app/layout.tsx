@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Instrument_Serif } from "next/font/google";
+import { Inter, Instrument_Serif, Space_Grotesk } from "next/font/google";
 import { siteConfig } from "@/lib/site-config";
 import "./globals.css";
 
@@ -13,6 +13,16 @@ const instrumentSerif = Instrument_Serif({
   subsets: ["latin"],
   weight: "400",
   variable: "--instrument-serif-font",
+  display: "swap",
+});
+
+// Solo para la palabra rotativa del hero (ver RotatingWord): una
+// geométrica y de trazo firme, bien distinta de la serif del titular y
+// de la sans del resto del texto, para que la palabra destaque.
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  weight: ["600", "700"],
+  variable: "--space-grotesk-font",
   display: "swap",
 });
 
@@ -73,6 +83,7 @@ const jsonLd = {
   url: siteUrl,
   logo: `${siteUrl}/brand/farum-logo-vertical-black.png`,
   telephone: `+${siteConfig.whatsappNumber}`,
+  email: siteConfig.contactEmail,
   priceRange: "$$",
   address: {
     "@type": "PostalAddress",
@@ -104,7 +115,7 @@ export default function RootLayout({
   return (
     <html
       lang="es"
-      className={`${inter.variable} ${instrumentSerif.variable}`}
+      className={`${inter.variable} ${instrumentSerif.variable} ${spaceGrotesk.variable}`}
     >
       <body className="antialiased">
         <script

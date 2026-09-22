@@ -230,7 +230,12 @@ const ResponsiveHeroBanner: React.FC<ResponsiveHeroBannerProps> = ({
                 {`${title} ${rotatingWords[0]} ${titleLine2}`}
               </span>
               <span aria-hidden="true">
-                {title} <RotatingWord words={rotatingWords} interval={rotatingInterval} />
+                {title}{" "}
+                <RotatingWord
+                  words={rotatingWords}
+                  interval={rotatingInterval}
+                  wordClassName="font-space-grotesk font-bold uppercase text-accent tracking-wide drop-shadow-[0_0_18px_rgba(59,130,246,0.45)]"
+                />
                 <br className="hidden sm:block" />{" "}
                 {titleLine2}
               </span>
