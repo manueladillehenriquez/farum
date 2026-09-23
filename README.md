@@ -28,7 +28,7 @@ y abre `http://localhost:3000`.
 
 **Casi todo el contenido vive en un solo archivo: [`lib/site-config.ts`](lib/site-config.ts)**
 (nombre de marca, textos del hero, los 4 pilares, precios, FAQ, WhatsApp,
-mensajes precargados, dirección, horarios, clientes y rutas de los logos).
+mensajes precargados, dirección, horarios y rutas de los logos).
 Los componentes solo lo leen, así que para cambiar un precio o un texto
 basta con editar ese archivo.
 
@@ -69,7 +69,6 @@ la raíz de tu hosting.
 │   ├── sections/
 │   │   ├── about-section.tsx      Quiénes somos
 │   │   ├── services-section.tsx   4 pilares + precios
-│   │   ├── clients-section.tsx    Clientes
 │   │   ├── booking-section.tsx    Agenda de horas (con bloqueo de cupos)
 │   │   ├── faq-section.tsx        Preguntas frecuentes
 │   │   └── contact-section.tsx    WhatsApp + QR + aviso de seguridad
@@ -81,7 +80,7 @@ la raíz de tu hosting.
 │   └── utils.ts            Helper cn() estándar de shadcn
 └── public/
     ├── brand/              Logos FARUM (ver abajo)
-    └── clients/            Logos de los clientes
+    └── clients/            Logos de clientes (sin uso: la sección se retiró)
 ```
 
 ## Marca y logos

@@ -2,7 +2,7 @@
  * site-config.ts
  * ------------------------------------------------------------------
  * Toda la información del negocio (precios, WhatsApp, dirección,
- * horarios, clientes, mensajes) vive en un solo lugar. Los componentes
+ * horarios, mensajes) vive en un solo lugar. Los componentes
  * de /components/sections la importan desde acá — así, para actualizar
  * un precio o el número de WhatsApp solo se edita este archivo.
  * ------------------------------------------------------------------
@@ -140,7 +140,6 @@ export const siteConfig = {
   whatsappDefaultMessage: `Hola ${BUSINESS_NAME}, quiero llevar mi negocio al siguiente nivel. ¿Me cuentan de los paquetes y la suscripción mensual?`,
   whatsappMessages: {
     quote: `Hola ${BUSINESS_NAME}, quiero cotizar uno de sus paquetes + la suscripción mensual.`,
-    nextClient: `Hola ${BUSINESS_NAME}, quiero que mi negocio sea el próximo en llevar su marca al siguiente nivel.`,
     qr: `Hola ${BUSINESS_NAME}, vi el código QR y quiero más información.`,
   },
 
@@ -242,41 +241,7 @@ export const siteConfig = {
     domainTransfer: DOMAIN_TRANSFER_PRICE,
   },
 
-  // Sección "Nuestros clientes".
-  clientsSection: {
-    eyebrow: "Nuestros clientes",
-    title: "Clientes que confían en nosotros",
-    description: `Empresas, Pymes y Negocios que confían en ${BUSINESS_NAME}`,
-  },
-
-  // `displayUrl`: texto corto bajo el logo (sin https://). `logoBg`: color de
-  // fondo del círculo; debe coincidir con el borde del logo para que no asome
-  // ninguna línea (los logos con fondo transparente se suavizan en el borde).
-  clients: [
-    {
-      name: "Inflables Champa",
-      url: "https://www.inflableschampa.cl",
-      displayUrl: "inflableschampa.cl",
-      logo: `${BASE_PATH}/clients/inflables-champa.png`,
-      logoBg: "#ffffff",
-    },
-    {
-      name: "Zona Trofeos",
-      url: "https://www.zonatrofeos.cl",
-      displayUrl: "zonatrofeos.cl",
-      logo: `${BASE_PATH}/clients/zona-trofeos.png`,
-      logoBg: "#730728",
-    },
-    {
-      name: "Nutricionista Camila Ortega",
-      url: "https://www.nutricionistacamilaortega.cl",
-      displayUrl: "www.nutricionistacamilaortega.cl",
-      logo: `${BASE_PATH}/clients/nutricionista-camila-ortega.png`,
-      logoBg: "#ffffff",
-    },
-  ],
-
-  // Sección "¿Por qué elegirnos?": sellos de garantía bajo la de clientes.
+  // Sección "¿Por qué elegirnos?": sellos de garantía bajo la de servicios.
   // `icon` es una clave que components/sections/why-us-section.tsx traduce
   // al ícono de lucide correspondiente (mismo patrón que `services.pillars`).
   whyUsSection: {

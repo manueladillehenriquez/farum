@@ -34,9 +34,6 @@ export function SiteFooter() {
                 <a href="#servicios" className="text-muted-foreground hover:text-foreground">
                   Qué incluye
                 </a>
-                <a href="#clientes" className="text-muted-foreground hover:text-foreground">
-                  Clientes
-                </a>
                 <a href="#agenda" className="text-muted-foreground hover:text-foreground">
                   Agendar
                 </a>

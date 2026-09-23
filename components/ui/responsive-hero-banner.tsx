@@ -74,7 +74,6 @@ const ResponsiveHeroBanner: React.FC<ResponsiveHeroBannerProps> = ({
   navLinks = [
     { label: "Quiénes somos", href: "#quienes-somos" },
     { label: "Qué incluye", href: "#servicios" },
-    { label: "Clientes", href: "#clientes" },
     { label: "Agendar", href: "#agenda" },
     { label: "Preguntas", href: "#faq" },
   ],

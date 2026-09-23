@@ -7,7 +7,7 @@ App Router, TypeScript, Tailwind v4, export estático), publicado en
 ## Regla #1: todo el contenido vive en `lib/site-config.ts`
 
 Precios, textos del hero, los pilares de "El siguiente nivel", los sellos de
-"¿Por qué elegirnos?", FAQ, datos de contacto, horarios, clientes y mensajes
+"¿Por qué elegirnos?", FAQ, datos de contacto, horarios y mensajes
 de WhatsApp están centralizados ahí. Los componentes de `/components` solo
 lo leen — **no** escribas copy a mano dentro de un componente si ya existe
 (o debería existir) un campo en `site-config.ts` para eso. Si agregas
@@ -60,7 +60,6 @@ components/
   sections/
     about-section.tsx      "Quiénes somos": exposición, Google, herramientas
     services-section.tsx   Los 4 pilares + los paquetes + las suscripciones
-    clients-section.tsx    Nuestros clientes
     why-us-section.tsx     "¿Por qué elegirnos?": sellos de garantía
     booking-section.tsx    Agenda de horas (localStorage, ver abajo)
     faq-section.tsx
@@ -74,7 +73,7 @@ lib/
 public/
   CNAME      Dominio propio (www.farum.cl) para GitHub Pages
   brand/     Logos FARUM: horizontal/vertical × blanco/negro, más el ícono solo
-  clients/   Logos de los clientes
+  clients/   Logos de clientes (sin uso: la sección se retiró)
 ```
 
 ## Cosas no obvias que vale la pena saber antes de tocar código
@@ -105,11 +104,6 @@ public/
   `localStorage`, es decir, es por navegador — no hay backend compartido.
   Cada reserva llega por WhatsApp y se confirma a mano; dos personas en
   dispositivos distintos podrían, en teoría, pedir la misma hora.
-- **Logos de clientes**: cada cliente tiene un `logoBg` en `site-config.ts`.
-  El círculo que lo envuelve usa ese color de fondo (no siempre blanco):
-  si el logo tiene bordes semi-transparentes y el fondo no coincide con el
-  color real del logo, se ve una línea del color equivocado en el borde
-  (pasó con el logo de Zona Trofeos, que es burdeo, no blanco).
 - **Export estático**: `next.config.ts` tiene `output: "export"` e
   `images.unoptimized: true` porque el sitio se sirve como HTML/CSS/JS
   plano. No se puede usar nada que dependa de un servidor Node corriendo
