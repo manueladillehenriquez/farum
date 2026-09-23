@@ -67,6 +67,7 @@ la raíz de tu hosting.
 │   │   ├── rotating-word.tsx            Palabra rotativa del titular
 │   │   └── gateway-flow.tsx             Fondo animado del hero
 │   ├── sections/
+│   │   ├── about-section.tsx      Quiénes somos
 │   │   ├── services-section.tsx   4 pilares + precios
 │   │   ├── clients-section.tsx    Clientes
 │   │   ├── booking-section.tsx    Agenda de horas (con bloqueo de cupos)

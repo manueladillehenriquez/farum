@@ -58,6 +58,7 @@ components/
     rotating-word.tsx            Palabra que alterna en el titular
     gateway-flow.tsx             Fondo animado del hero (ver abajo)
   sections/
+    about-section.tsx      "Quiénes somos": exposición, Google, herramientas
     services-section.tsx   Los 4 pilares + los paquetes + las suscripciones
     clients-section.tsx    Nuestros clientes
     why-us-section.tsx     "¿Por qué elegirnos?": sellos de garantía

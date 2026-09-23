@@ -11,9 +11,9 @@
 const BUSINESS_NAME = "FARUM";
 // Precios (todos con IVA incluido). Se definen acá para usarlos igual en las
 // cards, la FAQ y los mensajes, sin repetir el número a mano.
-const INITIAL_PRICE = "$39.990"; // Paquete Inicial (pago único)
-const ADVANCED_PRICE = "$59.990"; // Paquete Avanzado (pago único)
-const FULL_PRO_PRICE = "$189.900"; // Paquete Full Pro = Avanzado + App (pago único)
+const INITIAL_PRICE = "$59.990"; // Paquete Inicial (pago único)
+const ADVANCED_PRICE = "$99.990"; // Paquete Avanzado (pago único)
+const FULL_PRO_PRICE = "$279.990"; // Paquete Full Pro = Avanzado + App (pago único)
 const APP_PRICE = "$159.990"; // Desarrollo de la App contratado por separado
 const MONTHLY_PRICE = "$9.990"; // Suscripción mensual: mantenimiento de la página
 const MONTHLY_APP_PRICE = "$49.990"; // Suscripción mensual: página + App
@@ -53,6 +53,35 @@ export const siteConfig = {
     description: "Obtén tu Paquete Inicial hoy y lleva tu tarjeta NFC de regalo",
     primaryButtonText: "Quiero mi Paquete Inicial",
     secondaryButtonText: "Ver qué incluye",
+  },
+
+  // Sección "Quiénes somos": qué hace FARUM y qué gana el cliente. `icon` es
+  // una clave que components/sections/about-section.tsx traduce a un ícono
+  // de lucide (mismo patrón que `services.pillars`).
+  aboutSection: {
+    eyebrow: "Quiénes somos",
+    title: "Hacemos que tu negocio exista, se vea y se encuentre",
+    description: `${BUSINESS_NAME} arma la presencia completa de tu pyme: página web con dominio y hosting, registro en Google, tarjetas NFC, campañas de Google Ads y tu propia App. Lo hacemos en Santiago, con una persona real al otro lado, y lo dejamos funcionando para que tú te dediques a tu negocio.`,
+    highlights: [
+      {
+        icon: "exposure",
+        title: "Exposición 100%",
+        description:
+          "Un negocio sin página web solo existe para quien ya lo conoce. Con tu página, tu marca queda abierta las 24 horas, todos los días, para cualquiera que te busque, sin depender solo de las redes sociales ni del boca a boca.",
+      },
+      {
+        icon: "google",
+        title: "Existencia formal en Google",
+        description:
+          "Indexamos tu página para que Google te reconozca como un negocio real. Así, cuando alguien busca lo que ofreces, tu marca puede aparecer con su nombre, sus datos y su sitio oficial.",
+      },
+      {
+        icon: "tools",
+        title: "Herramientas físicas y digitales",
+        description:
+          "Tu página, tu App y tu campaña de Google Ads en lo digital; las tarjetas NFC en lo físico, que tus clientes acercan al celular para dejarte una reseña, seguirte o guardar tu contacto. Todo trabaja junto para potenciar tu marca.",
+      },
+    ],
   },
 
   // Sección de servicios: encabezado y los 4 pilares del "siguiente nivel".
@@ -240,8 +269,8 @@ export const siteConfig = {
     },
     {
       name: "Nutricionista Camila Ortega",
-      url: "https://manueladillehenriquez.github.io/nutricionista-camila-ortega/",
-      displayUrl: "Ver sitio web",
+      url: "https://www.nutricionistacamilaortega.cl",
+      displayUrl: "www.nutricionistacamilaortega.cl",
       logo: `${BASE_PATH}/clients/nutricionista-camila-ortega.png`,
       logoBg: "#ffffff",
     },
@@ -262,7 +291,7 @@ export const siteConfig = {
       },
       {
         icon: "clients",
-        label: "+10 clientes activos",
+        label: "+50 clientes activos",
       },
       {
         icon: "invoice",
@@ -280,6 +309,16 @@ export const siteConfig = {
   },
 
   faq: [
+    {
+      question: `¿Qué hace ${BUSINESS_NAME}?`,
+      answer:
+        "Armamos la presencia digital completa de tu negocio: dominio, hosting, página web, indexación en Google, tarjetas NFC, campañas de Google Ads y tu propia App. Trabajamos con pymes y negocios de Santiago, de forma presencial en Providencia o por videollamada.",
+    },
+    {
+      question: "¿Qué gano con tener página web frente a no tenerla?",
+      answer:
+        "Un negocio sin página web solo existe para quien ya lo conoce o lo encuentra en redes sociales. Con tu página estás disponible las 24 horas, tu marca puede aparecer en Google con su nombre y sus datos, y das la formalidad que tus clientes buscan antes de contactarte. Además, tu dominio es tu dirección propia: no depende de las reglas ni de los algoritmos de otra plataforma.",
+    },
     {
       question: "¿Qué incluye cada paquete?",
       answer: `Todos son de pago único e incluyen IVA. Paquete Inicial (${INITIAL_PRICE}): dominio, hosting, página web e indexación en Google, con una tarjeta NFC de regalo. Paquete Avanzado (${ADVANCED_PRICE}): dominio, hosting, página web, indexación en Google, 2 tarjetas NFC (contacto y conectividad) y una campaña de Google Ads, cuya inversión publicitaria la pagamos nosotros. Paquete Full Pro (${FULL_PRO_PRICE}): todo lo del Avanzado, más el desarrollo de tu App.`,

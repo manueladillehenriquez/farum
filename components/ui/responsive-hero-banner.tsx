@@ -72,6 +72,7 @@ const ResponsiveHeroBanner: React.FC<ResponsiveHeroBannerProps> = ({
   logoText = "FARUM",
   logoUrl,
   navLinks = [
+    { label: "Quiénes somos", href: "#quienes-somos" },
     { label: "Qué incluye", href: "#servicios" },
     { label: "Clientes", href: "#clientes" },
     { label: "Agendar", href: "#agenda" },
