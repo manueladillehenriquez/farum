@@ -17,7 +17,7 @@ interface ResponsiveHeroBannerProps {
   logoText?: string;
   /** Imagen del logo (versión clara, para el fondo oscuro del hero). */
   logoUrl?: string;
-  navLinks?: readonly NavLink[];
+  navLinks?: NavLink[];
   ctaButtonText?: string;
   ctaButtonHref?: string;
   badgeText?: string;
