@@ -39,24 +39,38 @@ momento. Los paquetes se cotizan por WhatsApp; **no** pasan por el carrito.
 
 ## Dominio, DNS y publicación
 
-- Dominio propio `www.farum.cl`, **DNS en Cloudflare**. Se despliega en
-  **Vercel** (repo `manueladillehenriquez/farum`): cada `git push` a `main`
-  despliega en producción y cada PR genera un preview. **Ya no se usa GitHub
-  Pages** (se eliminaron `deploy.yml` y los `CNAME`). El único workflow es
-  `.github/workflows/ci.yml` (tipos, lint, build; no publica).
+- Dominio propio `www.farum.cl`, **DNS en Cloudflare**. El destino final es
+  **Vercel** (repo `manueladillehenriquez/farum`): `main` = producción y cada
+  rama/PR = URL de preview. El workflow `ci.yml` solo verifica (tipos, lint,
+  pruebas de BD, build); no publica.
+- ⚠️ **Estado actual (importante):** la tienda vive en la rama **`feat/tienda`**;
+  `main` **todavía** es el sitio de marketing estático y `www.farum.cl` **se
+  sirve desde GitHub Pages** (modo "desde la rama main"), que depende de tres
+  cosas que solo existen en `main`: el archivo **`CNAME` de la raíz** (fija el
+  dominio), `.github/workflows/deploy.yml` y `output: "export"`.
+  `feat/tienda` borra las tres. **Mergear `feat/tienda` a `main` antes de que el
+  DNS apunte a Vercel deja el sitio caído** (404 "Site not found": ya pasó el
+  2026-09-26 y se recuperó con un `git revert`). No hagas ese merge ni ese push
+  sin confirmar que el CNAME `www` ya apunta a Vercel.
+- Orden seguro de la migración (detalle en el README, "Pasos manuales"):
+  1. Vercel conectado y la tienda probada en la URL de preview de `feat/tienda`.
+  2. Mover el CNAME `www` a Vercel: Vercel sirve **el sitio actual** desde `main`
+     (el export estático también despliega en Vercel), sin caída.
+  3. Recién ahí mergear `feat/tienda` a `main`.
+  4. Desactivar GitHub Pages.
 - Registros de Cloudflare que existen y **no deben borrarse** sin entender qué
   rompen:
-  - `CNAME www` → destino de Vercel, en **DNS only (nube gris)**.
+  - `CNAME www` → hoy `manueladillehenriquez.github.io`; al migrar, el destino
+    de Vercel, en **DNS only (nube gris)**.
   - `A farum.cl → 192.0.2.1` (proxied) + regla *Redirect from root to WWW*
     (Rules → Redirect Rules): `farum.cl` → `https://www.farum.cl` con 301. La
     IP es un marcador que nunca recibe tráfico.
   - `TXT farum.cl → google-site-verification=…`: verifica la propiedad de
     dominio `farum.cl` en Google Search Console. Sin él, se pierde la
     verificación.
-- **La migración de GitHub Pages a Vercel depende de pasos manuales del dueño**
-  (crear proyecto Supabase, variables en Vercel, cambiar el CNAME): están en el
-  README, sección "Pasos manuales". Mientras el CNAME no cambie, `www.farum.cl`
-  sigue sirviendo la última build de GitHub Pages.
+- La migración depende de pasos manuales del dueño (crear el proyecto de
+  Supabase, Turnstile, variables en Vercel, cambiar el CNAME): están en el
+  README, sección "Pasos manuales".
 - Si el dominio cambia otra vez, hay que actualizar: `NEXT_PUBLIC_SITE_URL` en
   Vercel (y su valor por defecto en `lib/env.ts`), el dominio en Vercel, el DNS
   en Cloudflare, los hostnames del widget de Turnstile, y reenviar el sitemap
@@ -191,7 +205,9 @@ public/clients/    Logos de clientes (sin uso: la sección se retiró)
 
 - **Nunca hagas commit ni push sin que el usuario lo pida explícitamente en
   ese turno.** Mostrar el resultado en local (o describirlo) y esperar
-  confirmación antes de publicar. Un push a `main` despliega en Vercel.
+  confirmación antes de publicar. Un push a `main` **publica el sitio en
+  producción** (hoy vía GitHub Pages; tras la migración, vía Vercel). Un push a
+  `feat/tienda` no toca producción.
 - Antes de proponer publicar: `npx tsc --noEmit`, `npm run lint` y
   `npm run build` deben pasar (el CI hace lo mismo).
 - No commitees `.env*` (solo `.env.example`, sin valores reales) ni pegues

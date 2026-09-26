@@ -13,9 +13,12 @@ admin con CRM básico** para gestionar pedidos, productos y categorías.
 Supabase (Postgres + Auth + Storage) · Webpay Plus · Cloudflare Turnstile ·
 desplegado en **Vercel** → `https://www.farum.cl`.
 
-> ⚠️ **Antes de publicar lee la sección [Pasos manuales](#pasos-manuales-lo-que-debes-hacer-tú).**
-> El sitio ya no es estático: necesita Supabase y variables de entorno en
-> Vercel, y el DNS debe apuntar a Vercel (hoy apunta a GitHub Pages).
+> ⚠️ **La tienda vive en la rama `feat/tienda`, no en `main`.** No la mergees a
+> `main` hasta el paso 6 de [Pasos manuales](#pasos-manuales-lo-que-debes-hacer-tú).
+> Hoy `www.farum.cl` se sirve desde **GitHub Pages** y depende de `main`: el
+> archivo `CNAME` de la raíz, `deploy.yml` y `output: "export"`. Esta rama borra
+> las tres cosas, así que mergearla antes de que el DNS apunte a Vercel
+> **deja el sitio caído** (404 "Site not found"; ya pasó una vez).
 
 ---
 
@@ -115,8 +118,18 @@ RLS, permisos y las funciones de pedidos; córrelo siempre que toques
 
 ## Pasos manuales (lo que debes hacer tú)
 
-Sigue este orden. Los pasos 1 a 4 se pueden hacer **antes** de tocar el DNS:
-mientras tanto `www.farum.cl` sigue mostrando el sitio actual de GitHub Pages.
+Sigue este orden; está pensado para **no tener ni un minuto de caída**:
+
+| Pasos | Qué ocurre | ¿Se ve algo en `www.farum.cl`? |
+|---|---|---|
+| 1 a 4 | Supabase, admin, Turnstile y proyecto de Vercel. Se prueba la tienda en la URL de preview de `feat/tienda` | No: sigue el sitio de GitHub Pages |
+| 5 | El DNS pasa a Vercel, que sirve **el mismo sitio actual** desde `main` | No: mismo contenido, otro servidor |
+| 6 | Se mergea `feat/tienda` a `main`; Vercel publica la tienda | Sí: aparece la tienda |
+| 7 y 8 | Search Console y Webpay en producción | — |
+
+**Por qué funciona:** `main` todavía contiene el sitio de marketing como export
+estático y Vercel también sabe desplegarlo. Por eso el DNS se mueve **antes** de
+mergear la tienda, cuando lo único que cambia es quién sirve la página.
 
 ### 1. Crear el proyecto de Supabase
 
@@ -169,16 +182,17 @@ mientras tanto `www.farum.cl` sigue mostrando el sitio actual de GitHub Pages.
 3. Copia la **Site Key** → `NEXT_PUBLIC_TURNSTILE_SITE_KEY` y el **Secret Key**
    → `TURNSTILE_SECRET_KEY`.
 
-### 4. Conectar el repo a Vercel
+### 4. Conectar el repo a Vercel y probar la tienda en preview
 
 1. <https://vercel.com> → **Add New → Project** → importa
-   `manueladillehenriquez/farum`. El framework (Next.js) se detecta solo.
+   `manueladillehenriquez/farum`. El framework (Next.js) se detecta solo. La
+   **Production Branch** debe quedar en `main`.
 2. **Environment Variables** (Settings → Environment Variables). Crea estas
-   para **Production**:
+   para **Production** *y* para **Preview**:
 
    | Variable | Valor |
    |---|---|
-   | `NEXT_PUBLIC_SITE_URL` | `https://www.farum.cl` |
+   | `NEXT_PUBLIC_SITE_URL` | Production: `https://www.farum.cl` · Preview (rama `feat/tienda`): la URL de preview de esa rama (ver abajo) |
    | `NEXT_PUBLIC_SUPABASE_URL` | del paso 1 |
    | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | del paso 1 |
    | `SUPABASE_SERVICE_ROLE_KEY` | del paso 1 — marcar como **Sensitive** |
@@ -186,21 +200,36 @@ mientras tanto `www.farum.cl` sigue mostrando el sitio actual de GitHub Pages.
    | `TURNSTILE_SECRET_KEY` | del paso 3 — marcar como **Sensitive** |
    | `TRANSBANK_ENV` | `integration` (sandbox) hasta tener credenciales reales |
 
-   Para **Preview** usa valores de prueba (claves de prueba de Turnstile,
-   `TRANSBANK_ENV=integration` y, idealmente, un proyecto de Supabase aparte).
-3. **Deploy.** Vercel te da una URL `*.vercel.app` para probar todo **antes**
-   de tocar el DNS (`/catalogo`, `/admin/login`, una compra de prueba).
+   > **`NEXT_PUBLIC_SITE_URL` en Preview importa:** Webpay devuelve al cliente
+   > a esa URL después de pagar. Si en Preview apunta a `www.farum.cl`, el pago
+   > de prueba volvería al sitio viejo y parecería que la compra falló. Créala
+   > solo para la rama `feat/tienda` (en Vercel: *Add Variable → Preview →
+   > branch `feat/tienda`*) con la URL estable de esa rama, del estilo
+   > `https://farum-git-feat-tienda-<tu-equipo>.vercel.app` (la ves en el
+   > deployment de la rama). Agrega también esa URL a los hostnames del widget
+   > de Turnstile del paso 3.
+   >
+   > Idealmente usa un **proyecto de Supabase aparte** para Preview, para no
+   > mezclar pedidos de prueba con los reales.
+3. Al importar el proyecto, Vercel despliega `main` (el sitio actual) y la
+   rama `feat/tienda` (la tienda). Abre la URL de preview de `feat/tienda` y
+   prueba `/catalogo`, `/admin/login` y una compra de prueba con las tarjetas
+   del sandbox de Transbank. Si cambias variables, haz **Redeploy**: solo se
+   aplican a despliegues nuevos.
 4. **Agregar el dominio:** *Settings → Domains* → agrega `www.farum.cl`.
    Vercel te mostrará el valor exacto del **CNAME** que debes usar (suele ser
    `cname.vercel-dns.com` o un valor propio del proyecto — usa el que Vercel
-   indique).
+   indique). Todavía **no** lo pongas en Cloudflare: eso es el paso 5.
 
-> **`git push` a `main` ya no publica en GitHub Pages:** el workflow
-> `deploy.yml` se eliminó. Desde ahora cada push a `main` despliega en Vercel
-> y cada Pull Request genera una URL de preview. El único workflow que queda
-> es `ci.yml`, que solo verifica (tipos, lint, build) y no publica nada.
+> Vercel despliega **cada** rama y cada Pull Request en su propia URL de
+> preview; solo `main` va a producción. El workflow `ci.yml` solo verifica
+> (tipos, lint, pruebas de BD y build) y no publica nada.
 
-### 5. Cambiar el DNS en Cloudflare (aquí ocurre el corte)
+### 5. Pasar el DNS a Vercel (sin cambiar el sitio)
+
+Haz este paso cuando la tienda ya se probó en preview y las variables de
+**Production** están cargadas. En este momento Vercel sirve el sitio **actual**
+desde `main`, así que para los visitantes no cambia nada.
 
 En Cloudflare → `farum.cl` → **DNS → Records**:
 
@@ -220,22 +249,42 @@ En Cloudflare → `farum.cl` → **DNS → Records**:
      Google Search Console. Si lo borras, Google revoca la propiedad.
 3. Espera a que Vercel marque el dominio como **Valid Configuration** y emita
    el certificado (minutos).
-4. Prueba `https://www.farum.cl`, `http://farum.cl` y `https://farum.cl`.
-5. **Desactiva GitHub Pages** para que no quede un sitio viejo publicado:
-   repo → *Settings → Pages → Build and deployment → Source: None* (y borra el
-   "Custom domain" si sigue ahí).
+4. Comprueba que `https://www.farum.cl`, `http://farum.cl` y `https://farum.cl`
+   siguen mostrando el sitio de siempre. Una forma de saber que ya lo sirve
+   Vercel: la respuesta trae la cabecera `server: Vercel`.
 
-Si algo sale mal, el **rollback** es volver a poner el CNAME `www` en
-`manueladillehenriquez.github.io` (mientras GitHub Pages siga habilitado).
+**Rollback:** vuelve a poner el CNAME `www` en `manueladillehenriquez.github.io`
+(GitHub Pages sigue habilitado y con su `CNAME` mientras no hagas el paso 6).
 
-### 6. Search Console
+### 6. Publicar la tienda: mergear `feat/tienda` a `main`
+
+Solo cuando el paso 5 esté verificado.
+
+1. Confirma que las variables de **Production** están completas en Vercel
+   (`NEXT_PUBLIC_SITE_URL=https://www.farum.cl`, Supabase, Turnstile, Transbank).
+2. Abre un Pull Request `feat/tienda` → `main` en GitHub y espera que el CI
+   pase. Mergéalo.
+3. Vercel despliega `main` en producción con la tienda (1 a 2 minutos). Como el
+   DNS ya apunta a Vercel, no hay caída.
+4. El merge elimina `CNAME`, `deploy.yml` y `output: "export"`: ahora sí es
+   seguro, porque `www.farum.cl` ya no depende de GitHub Pages.
+5. **Desactiva GitHub Pages** para que no quede un sitio viejo publicado: repo →
+   *Settings → Pages → Build and deployment → Source: None*.
+6. Prueba `/catalogo`, `/admin/login` y una compra de prueba en producción
+   (sandbox).
+
+**Rollback:** en Vercel → *Deployments*, el despliegue anterior → *Instant
+Rollback* (vuelve al sitio previo en segundos). Después, `git revert` del merge en
+`main`.
+
+### 7. Search Console
 
 Tras el cambio, en Google Search Console (propiedad de dominio `farum.cl`):
 *Sitemaps* → reenvía `https://www.farum.cl/sitemap.xml` (ahora incluye
 `/catalogo` y las categorías) y solicita la indexación de la portada y de
 `/catalogo`.
 
-### 7. Pasar Webpay a producción (cuando corresponda)
+### 8. Pasar Webpay a producción (cuando corresponda)
 
 Hasta entonces el checkout funciona en **sandbox** (muestra un aviso
 "Modo de pruebas" y no cobra dinero real). Para cobrar de verdad:
