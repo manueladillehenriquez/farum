@@ -16,6 +16,7 @@ export default function Home() {
       <ResponsiveHeroBanner
         logoText={siteConfig.businessName}
         logoUrl={siteConfig.brand.logoHorizontal}
+        navLinks={siteConfig.nav}
         ctaButtonHref={waLink()}
         badgeLabel={siteConfig.hero.badgeLabel}
         badgeText={siteConfig.hero.badgeText}

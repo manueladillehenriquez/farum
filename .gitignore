@@ -19,9 +19,10 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# local env files
-.env*.local
+# variables de entorno: NUNCA se commitean (solo .env.example, sin valores reales)
 .env
+.env.*
+!.env.example
 
 # vercel
 .vercel
