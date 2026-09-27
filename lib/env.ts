@@ -11,10 +11,27 @@
  * ------------------------------------------------------------------
  */
 
+/**
+ * Origen del sitio, sin "/" final. Prioridad:
+ *  1. NEXT_PUBLIC_SITE_URL, si está definida (override explícito).
+ *  2. En un preview de Vercel, la URL de la rama: Webpay devuelve al cliente a
+ *     esta URL, y en el preview debe ser la del preview, no la de producción.
+ *  3. El dominio de producción.
+ */
+function resolveSiteUrl(): string {
+  const explicit = process.env.NEXT_PUBLIC_SITE_URL;
+  if (explicit) return explicit;
+
+  const branchUrl = process.env.NEXT_PUBLIC_VERCEL_BRANCH_URL;
+  if (process.env.NEXT_PUBLIC_VERCEL_ENV === "preview" && branchUrl) {
+    return `https://${branchUrl}`;
+  }
+
+  return "https://www.farum.cl";
+}
+
 /** URL canónica del sitio, sin "/" final. */
-export const SITE_URL = (
-  process.env.NEXT_PUBLIC_SITE_URL || "https://www.farum.cl"
-).replace(/\/+$/, "");
+export const SITE_URL = resolveSiteUrl().replace(/\/+$/, "");
 
 /** Site key de Cloudflare Turnstile (pública por diseño). */
 export const TURNSTILE_SITE_KEY =
