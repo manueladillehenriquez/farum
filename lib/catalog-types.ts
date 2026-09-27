@@ -3,6 +3,8 @@
  * (sin imports de servidor: es seguro usarlo en componentes cliente).
  */
 
+import { getSupabasePublicEnv } from "@/lib/env";
+
 export type CategoryModo = "venta" | "cotizar";
 export type ProductEstado = "proximamente" | "disponible";
 
@@ -63,8 +65,8 @@ export function getProductAction(
  */
 export function trustedImageUrl(url: string | null | undefined): string | null {
   if (!url) return null;
-  const base = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  if (!base) return null;
-  const prefix = `${base.replace(/\/+$/, "")}/storage/v1/object/public/product-images/`;
+  const env = getSupabasePublicEnv();
+  if (!env) return null;
+  const prefix = `${env.url}/storage/v1/object/public/product-images/`;
   return url.startsWith(prefix) ? url : null;
 }
