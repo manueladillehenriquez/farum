@@ -28,17 +28,17 @@ export function SiteFooter() {
                 Navegación
               </h4>
               <div className="flex flex-col gap-2 text-sm">
-                <a href="#quienes-somos" className="text-muted-foreground hover:text-foreground">
-                  Quiénes somos
-                </a>
-                <a href="#servicios" className="text-muted-foreground hover:text-foreground">
-                  Qué incluye
-                </a>
-                <a href="#agenda" className="text-muted-foreground hover:text-foreground">
-                  Agendar
-                </a>
-                <a href="#faq" className="text-muted-foreground hover:text-foreground">
-                  Preguntas frecuentes
+                {siteConfig.nav.map((link) => (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    className="text-muted-foreground hover:text-foreground"
+                  >
+                    {link.label}
+                  </a>
+                ))}
+                <a href="/carrito" className="text-muted-foreground hover:text-foreground">
+                  Carrito
                 </a>
               </div>
             </div>

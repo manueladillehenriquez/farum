@@ -19,12 +19,9 @@ const MONTHLY_PRICE = "$9.990"; // Suscripción mensual: mantenimiento de la pá
 const MONTHLY_APP_PRICE = "$49.990"; // Suscripción mensual: página + App
 const DOMAIN_TRANSFER_PRICE = "$19.990";
 
-// Prefijo para las rutas de /public. Con el dominio propio (www.farum.cl)
-// el sitio se sirve desde la raíz, así que queda vacío; se deja el
-// mecanismo por si en algún momento vuelve a publicarse como repo de
-// proyecto de GitHub Pages (https://usuario.github.io/<repo>/), donde
-// `next/image` con `images.unoptimized` (requerido para el export
-// estático) no agrega el prefijo solo.
+// Prefijo para las rutas de /public. El sitio se sirve desde la raíz de
+// www.farum.cl (Vercel), así que queda vacío. Se deja el mecanismo por si
+// algún día se publica bajo una subruta.
 const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
 export const siteConfig = {
@@ -38,6 +35,17 @@ export const siteConfig = {
     logoHorizontal: `${BASE_PATH}/brand/farum-logo-horizontal-white.png`,
     logoVertical: `${BASE_PATH}/brand/farum-logo-vertical-white.png`,
   },
+
+  // Navegación principal (hero + cabecera de las páginas de la tienda).
+  // Las anclas llevan "/" al inicio para que también funcionen desde
+  // /catalogo, /carrito, etc.
+  nav: [
+    { label: "Quiénes somos", href: "/#quienes-somos" },
+    { label: "Qué incluye", href: "/#servicios" },
+    { label: "Catálogo", href: "/catalogo" },
+    { label: "Agendar", href: "/#agenda" },
+    { label: "Preguntas", href: "/#faq" },
+  ],
 
   // Contenido del hero: se pasa como props a ResponsiveHeroBanner desde
   // app/page.tsx, para que todo el mensaje del sitio viva en un solo lugar.
@@ -141,6 +149,71 @@ export const siteConfig = {
   whatsappMessages: {
     quote: `Hola ${BUSINESS_NAME}, quiero cotizar uno de sus paquetes + la suscripción mensual.`,
     qr: `Hola ${BUSINESS_NAME}, vi el código QR y quiero más información.`,
+  },
+
+  // Tienda: catálogo de productos y servicios, carrito y checkout. Los
+  // productos y precios viven en Supabase (se cargan desde /admin); acá solo
+  // está el texto de la interfaz.
+  catalog: {
+    eyebrow: "Catálogo",
+    title: "Productos y servicios para tu negocio",
+    description:
+      "Aseo, ferretería, oficina, tarjetas y sellos personalizados, y servicios operativos. Compra en línea con pago seguro o cotiza por WhatsApp.",
+    soonBadge: "Próximamente",
+    soonNote: "Estamos cerrando proveedores. Muy pronto disponible.",
+    soonButton: "Aún no disponible",
+    outOfStock: "Agotado",
+    addToCart: "Agregar al carrito",
+    added: "Agregado",
+    quoteButton: "Cotizar",
+    quoteNote: "Cotización a medida por WhatsApp",
+    vatNote: "IVA incluido",
+    emptyCategory: "Pronto sumaremos productos a esta categoría.",
+    unavailableTitle: "El catálogo no está disponible por ahora",
+    unavailableDescription:
+      "Estamos ajustando la tienda. Mientras tanto, escríbenos por WhatsApp y te ayudamos con tu pedido.",
+    allCategories: "Todas las categorías",
+  },
+
+  cart: {
+    title: "Tu carrito",
+    empty: "Tu carrito está vacío.",
+    emptyCta: "Ver el catálogo",
+    subtotal: "Total",
+    shippingNote: "El despacho se coordina contigo por WhatsApp después de tu compra.",
+    checkoutButton: "Ir a pagar",
+    continueShopping: "Seguir comprando",
+    paymentError:
+      "No pudimos completar el pago. Puedes volver a intentarlo o escribirnos por WhatsApp.",
+  },
+
+  checkout: {
+    title: "Finalizar compra",
+    description:
+      "Compras como invitado, sin crear cuenta. Solo necesitamos los datos para el despacho.",
+    payButton: "Pagar con Webpay",
+    paying: "Redirigiendo a Webpay…",
+    secureNote:
+      "El pago se realiza en Webpay (Transbank). FARUM nunca ve ni guarda los datos de tu tarjeta.",
+    sandboxNote:
+      "Modo de pruebas: no se realizan cobros reales. Usa las tarjetas de prueba de Transbank.",
+    privacyNote:
+      "Usamos tus datos solo para procesar y despachar tu pedido (Ley 21.719).",
+  },
+
+  order: {
+    paidTitle: "¡Pago recibido!",
+    paidDescription: "Tu pedido quedó confirmado. Te contactaremos para coordinar el despacho.",
+    dispatchedTitle: "Tu pedido fue despachado",
+    dispatchedDescription: "Tu pedido va en camino. Gracias por comprar en FARUM.",
+    failedTitle: "El pago no se completó",
+    failedDescription:
+      "No se realizó ningún cobro. Puedes volver a intentarlo desde tu carrito.",
+    pendingTitle: "Estamos verificando tu pago",
+    pendingDescription:
+      "Aún no tenemos la confirmación de Webpay. Si el cobro aparece en tu tarjeta, escríbenos por WhatsApp con tu número de pedido.",
+    notFoundTitle: "No encontramos ese pedido",
+    notFoundDescription: "Revisa el enlace o escríbenos por WhatsApp.",
   },
 
   contactEmail: "farum.cl@gmail.com",
@@ -340,4 +413,9 @@ export const siteConfig = {
 /** Construye un link de WhatsApp (wa.me) con mensaje precargado. */
 export function waLink(message: string = siteConfig.whatsappDefaultMessage) {
   return `https://wa.me/${siteConfig.whatsappNumber}?text=${encodeURIComponent(message)}`;
+}
+
+/** Mensaje precargado para cotizar un servicio del catálogo. */
+export function serviceQuoteMessage(serviceName: string) {
+  return `Hola ${BUSINESS_NAME}, quiero cotizar el servicio de ${serviceName}.`;
 }

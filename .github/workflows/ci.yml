@@ -1,0 +1,45 @@
+name: CI
+
+# Verificación en cada push y PR. NO publica nada: el despliegue lo hace
+# Vercel directamente desde el repo (ver README).
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: "npm"
+
+      - run: npm ci
+
+      - name: Tipos (TypeScript)
+        run: npx tsc --noEmit
+
+      - name: Lint
+        run: npm run lint
+
+      # Aplica las migraciones a un Postgres en memoria y comprueba RLS, permisos
+      # y las funciones de pedidos. Rompe el CI si alguien debilita la seguridad.
+      - name: Base de datos (RLS y funciones)
+        run: npm run test:db
+
+      - name: Build
+        run: npm run build
+
+      # Informativo: no bloquea el CI porque hoy hay avisos de PostCSS
+      # embebido en Next.js sin arreglo sin subir de versión mayor. Dependabot
+      # abre el PR cuando exista una corrección.
+      - name: Auditoría de dependencias
+        run: npm audit --omit=dev --audit-level=high
+        continue-on-error: true
