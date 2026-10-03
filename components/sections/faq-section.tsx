@@ -8,7 +8,7 @@ export function FaqSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <section id="faq" className="border-t border-border bg-card/40 py-24">
+    <section id="faq" className="border-t border-border bg-background py-24">
       <div className="mx-auto max-w-3xl px-6">
         <div className="mx-auto mb-12 max-w-xl text-center">
           <p className="text-sm font-medium uppercase tracking-widest text-accent">

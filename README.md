@@ -69,14 +69,13 @@ la raíz de tu hosting.
 │   │   ├── rotating-word.tsx            Palabra rotativa del titular
 │   │   └── gateway-flow.tsx             Fondo animado del hero
 │   ├── sections/
-│   │   ├── about-section.tsx        Quiénes somos
 │   │   ├── services-section.tsx     Los 4 servicios, con "Cotizar" por WhatsApp
 │   │   ├── process-section.tsx      Cómo trabajamos (4 pasos)
 │   │   ├── clients-section.tsx      Logos de clientes
 │   │   ├── why-us-section.tsx       Por qué FARUM (sellos)
-│   │   ├── responsible-section.tsx  Prospección responsable
 │   │   ├── faq-section.tsx          Preguntas frecuentes
-│   │   └── contact-section.tsx      Agenda tu reunión + QR + datos de contacto
+│   │   ├── responsible-section.tsx  Política de prospección responsable
+│   │   └── contact-section.tsx      Agenda tu reunión + QR + datos + mapa
 │   ├── site-footer.tsx
 │   ├── site-signature.tsx  Firma "By Farum" (esquina inferior derecha)
 │   └── whatsapp-fab.tsx    Botón flotante de WhatsApp
@@ -112,7 +111,7 @@ verán nítidos a cualquier tamaño.
 - **Agendar**: no hay calendario en el sitio. Todos los botones "Agenda tu
   reunión" y "Cotizar" abren WhatsApp con un mensaje precargado; la reunión se
   coordina a mano por ahí.
-- **Prospección responsable**: el texto de esa sección y de su pregunta en la
+- **Política de prospección responsable**: el texto de esa sección y de su pregunta en la
   FAQ es genérico y está pendiente de revisión legal; no certifica el
   cumplimiento de ninguna ley.
 - **Repo y URL**: el repositorio es `manueladillehenriquez/farum`, publicado

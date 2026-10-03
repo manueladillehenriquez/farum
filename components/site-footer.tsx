@@ -27,9 +27,6 @@ export function SiteFooter() {
                 Navegación
               </h4>
               <div className="flex flex-col gap-2 text-sm">
-                <a href="#quienes-somos" className="text-muted-foreground hover:text-foreground">
-                  Quiénes somos
-                </a>
                 {siteConfig.nav.map((link) => (
                   <a
                     key={link.href}
@@ -39,6 +36,12 @@ export function SiteFooter() {
                     {link.label}
                   </a>
                 ))}
+                <a
+                  href="#prospeccion-responsable"
+                  className="text-muted-foreground hover:text-foreground"
+                >
+                  Política de prospección
+                </a>
               </div>
             </div>
 

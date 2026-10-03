@@ -24,7 +24,7 @@ export function ResponsibleSection() {
   return (
     <section
       id="prospeccion-responsable"
-      className="border-t border-border bg-background py-24"
+      className="border-t border-border bg-card/40 py-24"
     >
       <div className="mx-auto max-w-5xl px-6">
         <div className="mx-auto mb-14 max-w-2xl text-center">

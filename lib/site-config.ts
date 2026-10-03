@@ -63,35 +63,6 @@ export const siteConfig = {
     secondaryButtonText: "Ver servicios",
   },
 
-  // Sección "Quiénes somos". `icon` es una clave que
-  // components/sections/about-section.tsx traduce a un ícono de lucide
-  // (mismo patrón que `services.pillars`).
-  aboutSection: {
-    eyebrow: "Quiénes somos",
-    title: "Un solo equipo para llegar a tus clientes y hacer que te encuentren",
-    description: `${BUSINESS_NAME} reúne a dos socios con roles distintos y complementarios: uno sale a buscar a tus próximos clientes y el otro construye tu presencia digital. Trabajamos con empresas y pymes de Chile, de forma directa y sin intermediarios.`,
-    highlights: [
-      {
-        icon: "reach",
-        title: "Llegamos a tus próximos clientes",
-        description:
-          "Prospectamos por llamadas, correo y LinkedIn a empresas segmentadas según tu mercado, y agendamos y confirmamos las reuniones por ti.",
-      },
-      {
-        icon: "found",
-        title: "Hacemos que te encuentren",
-        description:
-          "Tu página, tu indexación en Google, tus campañas de Google Ads y tu posicionamiento en buscadores y en IA, con una estrategia de búsqueda constante.",
-      },
-      {
-        icon: "build",
-        title: "Construimos lo que necesitas",
-        description:
-          "Software y apps a medida, y herramientas de integración digital como las tarjetas NFC, para que todo trabaje junto.",
-      },
-    ],
-  },
-
   // Sección de servicios: encabezado y las 4 líneas de servicio. `icon` es una
   // clave que components/sections/services-section.tsx traduce al ícono de
   // lucide. `quoteMessage` es el mensaje de WhatsApp del botón "Cotizar".
@@ -226,14 +197,14 @@ export const siteConfig = {
     ],
   },
 
-  // Sección "Prospección responsable".
-  // TEXTO GENÉRICO, PENDIENTE DE REVISIÓN LEGAL antes de darlo por definitivo:
-  // describe principios, no certifica cumplimiento de ninguna ley.
+  // Sección "Política de prospección responsable" (va cerca del final de la
+  // página). TEXTO GENÉRICO, PENDIENTE DE REVISIÓN LEGAL antes de darlo por
+  // definitivo: describe principios, no certifica cumplimiento de ninguna ley.
   responsible: {
-    eyebrow: "Prospección responsable",
-    title: "Contactar a otras empresas con respeto",
+    eyebrow: "Política",
+    title: "Política de prospección responsable",
     description:
-      "Cuando prospectamos en nombre de tu empresa, lo hacemos con estos criterios.",
+      "Aplica a toda la prospección que hacemos en nombre de tu empresa, por llamadas, correo y LinkedIn.",
     principles: [
       {
         icon: "professional",
@@ -282,6 +253,14 @@ export const siteConfig = {
     country: "CL",
   },
 
+  // Mapa de la oficina (se muestra en la sección de contacto). `query` es lo
+  // que Google Maps busca: mantenlo igual a `address`.
+  map: {
+    query: "Portugal 373, Santiago, Chile",
+    title: "Mapa de la oficina de FARUM",
+    directionsLabel: "Cómo llegar",
+  },
+
   hours: {
     weekdays: "Lunes a viernes: 11:00 a 15:00 hrs, presencial",
     saturday: "Sábado: 10:00 a 14:00 hrs, solo por videollamada Zoom",
@@ -312,6 +291,11 @@ export const siteConfig = {
       question: "¿Cómo se cobra?",
       answer:
         "Con una suscripción mensual a tu medida. No hay paquetes cerrados: en la reunión definimos qué servicios necesitas y armamos el presupuesto según los que tomes.",
+    },
+    {
+      question: "¿Puedo cancelar cuando quiera?",
+      answer:
+        "Sí. Cuando ya no quieras el servicio, lo damos de baja, sin costo ni letra chica. Y si más adelante decides volver, lo retomamos.",
     },
     {
       question: "¿Qué incluye la presencia digital?",
