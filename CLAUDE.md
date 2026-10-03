@@ -6,25 +6,25 @@ App Router, TypeScript, Tailwind v4, export estático), publicado en
 
 ## Regla #1: todo el contenido vive en `lib/site-config.ts`
 
-Precios, textos del hero, los pilares de "El siguiente nivel", los sellos de
-"¿Por qué elegirnos?", FAQ, datos de contacto, horarios y mensajes
-de WhatsApp están centralizados ahí. Los componentes de `/components` solo
+Textos del hero, los 4 servicios, los pasos de "Cómo trabajamos", clientes,
+sellos de "Por qué FARUM", prospección responsable, FAQ, datos de contacto,
+horarios y mensajes de WhatsApp están centralizados ahí. Los componentes de `/components` solo
 lo leen — **no** escribas copy a mano dentro de un componente si ya existe
 (o debería existir) un campo en `site-config.ts` para eso. Si agregas
 contenido nuevo, agrégalo primero a la config y luego consúmelo desde el
 componente.
 
-## Oferta y precios (leerlos siempre de acá, no de memoria)
+## Oferta (leerla siempre de acá, no de memoria)
 
-La oferta actual son **3 paquetes de pago único + 2 suscripciones
-mensuales**, todos con **IVA incluido**. Los montos y qué incluye cada uno
-están en `siteConfig.pricing` (`lib/site-config.ts`), como constantes
-(`INITIAL_PRICE`, `ADVANCED_PRICE`, `FULL_PRO_PRICE`, `APP_PRICE`,
-`MONTHLY_PRICE`, `MONTHLY_APP_PRICE`) arriba del archivo. La oferta ha
-cambiado varias veces en esta misma etapa del proyecto (nombres de planes,
-qué incluye cada uno, qué es "de regalo" vs. "servicio aparte", y los
-precios mismos) — **no copies un precio de un chat, un README viejo o una
-sesión anterior**: léelo del archivo en el momento.
+Desde el rediseño de octubre de 2026 **no hay paquetes ni precios públicos**:
+FARUM ofrece cuatro líneas de servicio (prospección de clientes, agendamiento y
+confirmación, presencia digital, software y apps) por **suscripción mensual
+presupuestada a medida** en una reunión. El detalle está en
+`siteConfig.services` (`lib/site-config.ts`). **No agregues precios, cifras de
+clientes, "24/7" ni promesas de posicionamiento** sin que el dueño las
+confirme, y no menciones el software de prospección que se usa por dentro ni
+hables de "base de datos propia" (no lo es). La oferta ha cambiado varias
+veces: **no copies nada de un chat, un README viejo o una sesión anterior**.
 
 ## Dominio y publicación
 
@@ -62,18 +62,18 @@ no se borra, pero ya no forma parte de `main`. El proyecto de Supabase y el
 widget de Turnstile siguen existiendo en las cuentas del dueño. Si alguna vez
 vuelve una tienda, se parte de ese tag y requiere un hosting con servidor.
 
-## Nuevo giro (en rediseño)
+## Nuevo giro
 
-FARUM pasa de vender paquetes de presencia digital a pymes a ofrecer servicios
-**B2B** por **suscripción mensual**, presupuestados a medida tras una reunión:
-prospección de clientes, agendamientos y confirmaciones, optimización de
-presencia digital (indexación en Google, Google Ads, posicionamiento en IA con
-método SEO, herramientas de integración digital incl. tarjetas NFC) y desarrollo
-de software y apps. Los **paquetes y precios actuales de `siteConfig.pricing`
-quedan obsoletos** y se eliminan en el rediseño; la acción principal pasa a ser
-agendar una reunión (enlace de reservas de Google Calendar). La marca no cambia.
-Los manuales internos y speech de trabajo son **privados**: este repo es
-público, no los guardes aquí.
+FARUM pasó de vender paquetes de presencia digital a pymes a ofrecer servicios
+**B2B** por **suscripción mensual**, presupuestados a medida tras una reunión
+(ver "Oferta"). La acción principal es **"Agenda tu reunión"**: abre WhatsApp
+(+56 9 6460 5635) con un mensaje precargado; no hay calendario en el sitio. La
+marca no cambia. Los manuales internos y speech de trabajo son **privados**:
+este repo es público, no los guardes aquí.
+
+El texto de "Prospección responsable" (y su pregunta en la FAQ) es genérico y
+está **pendiente de revisión legal**: no lo presentes como certificación de
+cumplimiento de ninguna ley.
 
 ## Estructura
 
@@ -90,12 +90,14 @@ components/
     rotating-word.tsx            Palabra que alterna en el titular
     gateway-flow.tsx             Fondo animado del hero (ver abajo)
   sections/
-    about-section.tsx      "Quiénes somos": exposición, Google, herramientas
-    services-section.tsx   Los 4 pilares + los paquetes + las suscripciones
-    why-us-section.tsx     "¿Por qué elegirnos?": sellos de garantía
-    booking-section.tsx    Agenda de horas (localStorage, ver abajo)
+    about-section.tsx        "Quiénes somos": los 3 ejes
+    services-section.tsx     Los 4 servicios, cada uno con "Cotizar" por WhatsApp
+    process-section.tsx      "Cómo trabajamos": 4 pasos
+    clients-section.tsx      Logos de clientes + cupo "Tu empresa"
+    why-us-section.tsx       "Por qué FARUM": sellos (solo los verdaderos)
+    responsible-section.tsx  "Prospección responsable" (pendiente revisión legal)
     faq-section.tsx
-    contact-section.tsx    WhatsApp + QR + aviso antifraude
+    contact-section.tsx      Agenda tu reunión + QR + dirección y horarios
   site-footer.tsx
   site-signature.tsx   Firma "By Farum" fija, esquina inferior derecha
   whatsapp-fab.tsx     Botón flotante de WhatsApp
@@ -105,7 +107,7 @@ lib/
 public/
   CNAME      Dominio propio (www.farum.cl) para GitHub Pages
   brand/     Logos FARUM: horizontal/vertical × blanco/negro, más el ícono solo
-  clients/   Logos de clientes (sin uso: la sección se retiró)
+  clients/   Logos de clientes (se registran en `siteConfig.clients`)
 ```
 
 ## Cosas no obvias que vale la pena saber antes de tocar código
@@ -132,10 +134,10 @@ public/
   la versión animada es puramente visual (`aria-hidden`). Si cambias el
   titular, edita `siteConfig.hero.title` / `rotatingWords` / `titleLine2`,
   no el JSX.
-- **Agenda (`booking-section.tsx`)**: el bloqueo de horarios usa
-  `localStorage`, es decir, es por navegador — no hay backend compartido.
-  Cada reserva llega por WhatsApp y se confirma a mano; dos personas en
-  dispositivos distintos podrían, en teoría, pedir la misma hora.
+- **Número de WhatsApp**: vive solo en `siteConfig.whatsappNumber`; de ahí salen
+  el botón flotante, el QR de contacto (se genera en el navegador con
+  `qrcode`), todos los "Agenda tu reunión"/"Cotizar" y el `telephone` del
+  JSON-LD de `app/layout.tsx`. No lo escribas a mano en ningún otro lado.
 - **Export estático**: `next.config.ts` tiene `output: "export"` e
   `images.unoptimized: true` porque el sitio se sirve como HTML/CSS/JS
   plano. No se puede usar nada que dependa de un servidor Node corriendo

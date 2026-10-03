@@ -1,6 +1,5 @@
 import {
   Headset,
-  Landmark,
   ReceiptText,
   UserCog,
   UsersRound,
@@ -15,18 +14,17 @@ const BADGE_ICONS: Record<
   (typeof siteConfig.whyUsSection.badges)[number]["icon"],
   LucideIcon
 > = {
-  payments: Landmark,
-  clients: UsersRound,
   invoice: ReceiptText,
   team: UserCog,
   support: Headset,
+  clients: UsersRound,
 };
 
 export function WhyUsSection() {
   const { whyUsSection } = siteConfig;
 
   return (
-    <section className="border-t border-border bg-background py-20">
+    <section className="border-t border-border bg-card/40 py-20">
       <div className="mx-auto max-w-5xl px-6">
         <div className="mx-auto mb-12 max-w-xl text-center">
           <p className="text-sm font-medium uppercase tracking-widest text-accent">
@@ -40,7 +38,7 @@ export function WhyUsSection() {
           </p>
         </div>
 
-        <div className="mx-auto grid max-w-4xl grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 lg:grid-cols-5">
+        <div className="mx-auto grid max-w-3xl grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-4">
           {whyUsSection.badges.map((badge) => {
             const Icon = BADGE_ICONS[badge.icon];
             return (

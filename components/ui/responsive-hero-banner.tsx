@@ -72,23 +72,23 @@ const ResponsiveHeroBanner: React.FC<ResponsiveHeroBannerProps> = ({
   logoText = "FARUM",
   logoUrl,
   navLinks = [
-    { label: "Quiénes somos", href: "#quienes-somos" },
-    { label: "Qué incluye", href: "#servicios" },
-    { label: "Agendar", href: "#agenda" },
+    { label: "Servicios", href: "#servicios" },
+    { label: "Cómo trabajamos", href: "#como-trabajamos" },
+    { label: "Clientes", href: "#clientes" },
     { label: "Preguntas", href: "#faq" },
   ],
   ctaButtonText = "Escríbenos",
   ctaButtonHref = "#contacto",
   badgeLabel = "Nuevo",
-  badgeText = "Tu marca completa, con entrega en 7 días",
+  badgeText = "",
   title = "Tu",
   rotatingWords = ["empresa", "negocio", "pyme"],
   rotatingInterval = 1000,
   titleLine2 = "al siguiente nivel.",
-  description = "Obtén tu Paquete Inicial hoy y lleva tu tarjeta NFC de regalo",
-  primaryButtonText = "Quiero mi Paquete Inicial",
-  primaryButtonHref = "#agenda",
-  secondaryButtonText = "Ver qué incluye",
+  description = "",
+  primaryButtonText = "Agenda tu reunión",
+  primaryButtonHref = "#contacto",
+  secondaryButtonText = "Ver servicios",
   secondaryButtonHref = "#servicios",
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -147,7 +147,7 @@ const ResponsiveHeroBanner: React.FC<ResponsiveHeroBannerProps> = ({
                   <a
                     key={index}
                     href={link.href}
-                    className={`px-3 py-2 text-sm font-medium hover:text-white font-sans transition-colors ${
+                    className={`whitespace-nowrap px-3 py-2 text-sm font-medium hover:text-white font-sans transition-colors ${
                       link.isActive ? "text-white/90" : "text-white/80"
                     }`}
                   >
@@ -158,7 +158,7 @@ const ResponsiveHeroBanner: React.FC<ResponsiveHeroBannerProps> = ({
                   href={ctaButtonHref}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="ml-1 inline-flex items-center gap-2 rounded-full bg-white px-3.5 py-2 text-sm font-medium text-neutral-900 hover:bg-white/90 font-sans transition-colors"
+                  className="ml-1 inline-flex items-center gap-2 whitespace-nowrap rounded-full bg-white px-3.5 py-2 text-sm font-medium text-neutral-900 hover:bg-white/90 font-sans transition-colors"
                 >
                   {ctaButtonText}
                   <ArrowUpRight className="h-4 w-4" />
@@ -248,6 +248,9 @@ const ResponsiveHeroBanner: React.FC<ResponsiveHeroBannerProps> = ({
             <div className="flex flex-col sm:flex-row sm:gap-4 mt-10 gap-3 items-center justify-center animate-fade-slide-in-4">
               <a
                 href={primaryButtonHref}
+                {...(primaryButtonHref.startsWith("http")
+                  ? { target: "_blank", rel: "noopener noreferrer" }
+                  : {})}
                 className="inline-flex items-center gap-2 hover:bg-white/15 text-sm font-medium text-white bg-white/10 ring-white/15 ring-1 rounded-full py-3 px-5 font-sans transition-colors"
               >
                 {primaryButtonText}
