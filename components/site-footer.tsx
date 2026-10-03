@@ -17,8 +17,7 @@ export function SiteFooter() {
               className="h-24 w-auto"
             />
             <p className="mt-4 text-sm text-muted-foreground">
-              {siteConfig.tagline}: página web con dominio y hosting, tarjetas
-              NFC, Google Ads y tu propia App.
+              {siteConfig.tagline}.
             </p>
           </div>
 
@@ -31,15 +30,15 @@ export function SiteFooter() {
                 <a href="#quienes-somos" className="text-muted-foreground hover:text-foreground">
                   Quiénes somos
                 </a>
-                <a href="#servicios" className="text-muted-foreground hover:text-foreground">
-                  Qué incluye
-                </a>
-                <a href="#agenda" className="text-muted-foreground hover:text-foreground">
-                  Agendar
-                </a>
-                <a href="#faq" className="text-muted-foreground hover:text-foreground">
-                  Preguntas frecuentes
-                </a>
+                {siteConfig.nav.map((link) => (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    className="text-muted-foreground hover:text-foreground"
+                  >
+                    {link.label}
+                  </a>
+                ))}
               </div>
             </div>
 
@@ -72,8 +71,7 @@ export function SiteFooter() {
 
         <div className="border-t border-border pt-6 text-xs text-muted-foreground">
           <span>
-            © {year} {siteConfig.businessName} · Cumplimos Ley 21.719 de
-            Protección de Datos Personales
+            © {year} {siteConfig.businessName}
           </span>
         </div>
       </div>

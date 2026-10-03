@@ -1,11 +1,12 @@
 # FARUM — Next.js + TypeScript + Tailwind + shadcn
 
-Sitio de **FARUM**: ayudamos a pymes a llevar su empresa al siguiente nivel.
-La oferta son tres paquetes de pago único: **Inicial** (dominio + hosting +
-página web + indexación en Google, con una tarjeta NFC de regalo), **Avanzado**
-(suma 2 tarjetas NFC y una campaña de Google Ads) y **Full Pro** (Avanzado +
-desarrollo de la App). Además, dos suscripciones mensuales de mantenimiento
-(página, o página + App). Todos los precios llevan IVA incluido y están en
+Sitio de **FARUM**: servicios para empresas y pymes por **suscripción mensual**,
+presupuestados a medida en una reunión (no hay paquetes ni precios públicos).
+Las cuatro líneas son prospección de clientes, agendamiento y confirmación de
+reuniones, presencia digital (página web, indexación en Google, Google Ads,
+posicionamiento SEO y en IA, herramientas de integración digital como tarjetas
+NFC) y desarrollo de software y apps. La acción principal es **"Agenda tu
+reunión"**, que abre WhatsApp con un mensaje precargado. Todo el texto está en
 `lib/site-config.ts`.
 
 Stack: **Next.js 15 (App Router) + TypeScript + Tailwind CSS v4**, con la
@@ -24,13 +25,14 @@ npm run dev
 
 y abre `http://localhost:3000`.
 
-## Editar textos, precios y datos
+## Editar textos y datos
 
 **Casi todo el contenido vive en un solo archivo: [`lib/site-config.ts`](lib/site-config.ts)**
-(nombre de marca, textos del hero, los 4 pilares, precios, FAQ, WhatsApp,
-mensajes precargados, dirección, horarios y rutas de los logos).
-Los componentes solo lo leen, así que para cambiar un precio o un texto
-basta con editar ese archivo.
+(nombre de marca, textos del hero, los 4 servicios, pasos de trabajo, clientes,
+FAQ, WhatsApp, mensajes precargados, dirección, horarios y rutas de los logos).
+Los componentes solo lo leen, así que para cambiar un texto o el número de
+WhatsApp basta con editar ese archivo. El número alimenta el botón flotante, el
+QR, el contacto y el JSON-LD.
 
 ## Publicar
 
@@ -67,11 +69,14 @@ la raíz de tu hosting.
 │   │   ├── rotating-word.tsx            Palabra rotativa del titular
 │   │   └── gateway-flow.tsx             Fondo animado del hero
 │   ├── sections/
-│   │   ├── about-section.tsx      Quiénes somos
-│   │   ├── services-section.tsx   4 pilares + precios
-│   │   ├── booking-section.tsx    Agenda de horas (con bloqueo de cupos)
-│   │   ├── faq-section.tsx        Preguntas frecuentes
-│   │   └── contact-section.tsx    WhatsApp + QR + aviso de seguridad
+│   │   ├── about-section.tsx        Quiénes somos
+│   │   ├── services-section.tsx     Los 4 servicios, con "Cotizar" por WhatsApp
+│   │   ├── process-section.tsx      Cómo trabajamos (4 pasos)
+│   │   ├── clients-section.tsx      Logos de clientes
+│   │   ├── why-us-section.tsx       Por qué FARUM (sellos)
+│   │   ├── responsible-section.tsx  Prospección responsable
+│   │   ├── faq-section.tsx          Preguntas frecuentes
+│   │   └── contact-section.tsx      Agenda tu reunión + QR + datos de contacto
 │   ├── site-footer.tsx
 │   ├── site-signature.tsx  Firma "By Farum" (esquina inferior derecha)
 │   └── whatsapp-fab.tsx    Botón flotante de WhatsApp
@@ -80,7 +85,7 @@ la raíz de tu hosting.
 │   └── utils.ts            Helper cn() estándar de shadcn
 └── public/
     ├── brand/              Logos FARUM (ver abajo)
-    └── clients/            Logos de clientes (sin uso: la sección se retiró)
+    └── clients/            Logos de clientes (se agregan en site-config.ts)
 ```
 
 ## Marca y logos
@@ -104,10 +109,12 @@ verán nítidos a cualquier tamaño.
   CDNs (Tailwind, GSAP, iconify), así que necesita conexión a internet para
   mostrarse. Es decorativo (`aria-hidden`) y se congela si el usuario tiene
   activada la opción de reducir animaciones.
-- **Agenda**: el bloqueo de horarios usa `localStorage`, es decir, es por
-  navegador y no hay backend compartido. Sirve porque cada reserva llega por
-  WhatsApp y se confirma a mano, pero no evita que dos personas en
-  dispositivos distintos pidan la misma hora.
+- **Agendar**: no hay calendario en el sitio. Todos los botones "Agenda tu
+  reunión" y "Cotizar" abren WhatsApp con un mensaje precargado; la reunión se
+  coordina a mano por ahí.
+- **Prospección responsable**: el texto de esa sección y de su pregunta en la
+  FAQ es genérico y está pendiente de revisión legal; no certifica el
+  cumplimiento de ninguna ley.
 - **Repo y URL**: el repositorio es `manueladillehenriquez/farum`, publicado
   en GitHub Pages y servido en `https://www.farum.cl/` (DNS en Cloudflare,
   con `www` apuntando por CNAME a `manueladillehenriquez.github.io`). Si
