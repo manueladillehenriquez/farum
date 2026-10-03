@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 import { siteConfig, waLink } from "@/lib/site-config";
 
 export function ContactSection() {
-  const { contactSection, address, hours, contactEmail } = siteConfig;
+  const { contactSection, address, hours, contactEmail, map } = siteConfig;
+  const mapQuery = encodeURIComponent(map.query);
   const [qrDataUrl, setQrDataUrl] = useState<string | null>(null);
 
   useEffect(() => {
@@ -82,6 +83,30 @@ export function ContactSection() {
             <span className="text-xs font-bold text-neutral-900">
               {contactSection.qrCaption}
             </span>
+          </div>
+        </div>
+
+        {/* Mapa de la oficina: carga solo cuando se acerca a la pantalla */}
+        <div className="mt-6 overflow-hidden rounded-2xl border border-border bg-card">
+          <iframe
+            title={map.title}
+            src={`https://www.google.com/maps?q=${mapQuery}&output=embed`}
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            className="h-64 w-full border-0"
+          />
+          <div className="flex flex-wrap items-center justify-between gap-3 px-5 py-3 text-sm">
+            <span className="text-muted-foreground">
+              {address.street}, {address.comuna}
+            </span>
+            <a
+              href={`https://www.google.com/maps/search/?api=1&query=${mapQuery}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-medium text-accent hover:underline"
+            >
+              {map.directionsLabel}
+            </a>
           </div>
         </div>
       </div>

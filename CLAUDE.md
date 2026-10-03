@@ -71,7 +71,7 @@ FARUM pasó de vender paquetes de presencia digital a pymes a ofrecer servicios
 marca no cambia. Los manuales internos y speech de trabajo son **privados**:
 este repo es público, no los guardes aquí.
 
-El texto de "Prospección responsable" (y su pregunta en la FAQ) es genérico y
+El texto de la "Política de prospección responsable" (y su pregunta en la FAQ) es genérico y
 está **pendiente de revisión legal**: no lo presentes como certificación de
 cumplimiento de ninguna ley.
 
@@ -90,14 +90,13 @@ components/
     rotating-word.tsx            Palabra que alterna en el titular
     gateway-flow.tsx             Fondo animado del hero (ver abajo)
   sections/
-    about-section.tsx        "Quiénes somos": los 3 ejes
     services-section.tsx     Los 4 servicios, cada uno con "Cotizar" por WhatsApp
     process-section.tsx      "Cómo trabajamos": 4 pasos
     clients-section.tsx      Logos de clientes + cupo "Tu empresa"
     why-us-section.tsx       "Por qué FARUM": sellos (solo los verdaderos)
-    responsible-section.tsx  "Prospección responsable" (pendiente revisión legal)
     faq-section.tsx
-    contact-section.tsx      Agenda tu reunión + QR + dirección y horarios
+    responsible-section.tsx  "Política de prospección responsable" (pendiente revisión legal)
+    contact-section.tsx      Agenda tu reunión + QR + dirección, horarios y mapa
   site-footer.tsx
   site-signature.tsx   Firma "By Farum" fija, esquina inferior derecha
   whatsapp-fab.tsx     Botón flotante de WhatsApp

@@ -1,5 +1,4 @@
 import ResponsiveHeroBanner from "@/components/ui/responsive-hero-banner";
-import { AboutSection } from "@/components/sections/about-section";
 import { ServicesSection } from "@/components/sections/services-section";
 import { ProcessSection } from "@/components/sections/process-section";
 import { ClientsSection } from "@/components/sections/clients-section";
@@ -34,13 +33,12 @@ export default function Home() {
         primaryButtonHref={meetingLink}
         secondaryButtonText={siteConfig.hero.secondaryButtonText}
       />
-      <AboutSection />
       <ServicesSection />
       <ProcessSection />
       <ClientsSection />
       <WhyUsSection />
-      <ResponsibleSection />
       <FaqSection />
+      <ResponsibleSection />
       <ContactSection />
       <SiteFooter />
       <WhatsappFab />
