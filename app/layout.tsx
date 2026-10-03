@@ -1,7 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Instrument_Serif, Space_Grotesk } from "next/font/google";
-import { CartProvider } from "@/components/cart/cart-provider";
-import { SITE_URL } from "@/lib/env";
 import { siteConfig } from "@/lib/site-config";
 import "./globals.css";
 
@@ -28,8 +26,7 @@ const spaceGrotesk = Space_Grotesk({
   display: "swap",
 });
 
-// URL canónica del sitio (NEXT_PUBLIC_SITE_URL; por defecto https://www.farum.cl).
-const siteUrl = SITE_URL;
+const siteUrl = "https://www.farum.cl";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -124,7 +121,7 @@ export default function RootLayout({
           // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        <CartProvider>{children}</CartProvider>
+        {children}
       </body>
     </html>
   );

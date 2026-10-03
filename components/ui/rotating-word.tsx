@@ -24,7 +24,7 @@ interface RotatingWordProps {
  * - Todas las palabras se apilan en la misma celda de una grilla, así que
  *   el ancho reservado es el de la más larga: el resto del titular no se
  *   mueve cuando la palabra cambia.
- * - El primer render (servidor / prerender) muestra la primera
+ * - El primer render (servidor / export estático) muestra la primera
  *   palabra; la rotación empieza recién tras el montaje.
  * - Con `prefers-reduced-motion` no rota ni anima: se queda en la primera.
  * - Es puramente visual: quien lo use debe entregar el texto completo a
