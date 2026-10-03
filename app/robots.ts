@@ -1,14 +1,14 @@
 import type { MetadataRoute } from "next";
-import { SITE_URL } from "@/lib/env";
+
+// Requerido por Next.js para poder generar /robots.txt en un export estático.
+export const dynamic = "force-static";
 
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: {
       userAgent: "*",
       allow: "/",
-      // Áreas privadas o transaccionales: fuera de los buscadores.
-      disallow: ["/admin", "/api/", "/carrito", "/checkout", "/pedido/"],
     },
-    sitemap: `${SITE_URL}/sitemap.xml`,
+    sitemap: "https://www.farum.cl/sitemap.xml",
   };
 }
