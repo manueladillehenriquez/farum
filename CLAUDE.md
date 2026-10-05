@@ -6,7 +6,7 @@ App Router, TypeScript, Tailwind v4, export estático), publicado en
 
 ## Regla #1: todo el contenido vive en `lib/site-config.ts`
 
-Textos del hero, los 3 servicios con sus precios, los planes de Google Ads, los pasos de "Cómo trabajamos", clientes,
+Textos del hero, los 3 servicios, los planes de Google Ads, los pasos de "Cómo trabajamos", clientes,
 sellos de "Por qué FARUM", prospección responsable, FAQ, datos de contacto,
 horarios y mensajes de WhatsApp están centralizados ahí. Los componentes de `/components` solo
 lo leen — **no** escribas copy a mano dentro de un componente si ya existe
@@ -17,25 +17,26 @@ componente.
 ## Oferta (leerla siempre de acá, no de memoria)
 
 Desde la reunión de socios del **2026-10-05** FARUM ofrece **tres servicios**
-(el detalle y los precios viven en `siteConfig.services` y
-`siteConfig.googleAds`, en `lib/site-config.ts`). Todos los valores son
-**+ IVA**:
+(detalle en `siteConfig.services` y `siteConfig.googleAds`, en
+`lib/site-config.ts`):
 
-1. **Prospección de clientes con IA — $200.000 + IVA al mes.** Incluye
-   agendamiento y confirmaciones (se fusionaron en un solo servicio). Se
-   promociona con "100 correos diarios a público segmentado, con comunicación
-   efectiva y no genérica". El cliente recibe cada reunión por WhatsApp para
-   confirmarla; los horarios de disponibilidad se definen en la primera
-   reunión de diagnóstico.
-2. **Presencia digital:** indexación + sitemap ($19.990), campañas de Google
-   Ads (4 planes, **sin precio público**: se cotiza) y tarjetas NFC ($14.990).
+1. **Prospección de clientes con IA.** Incluye agendamiento y confirmaciones
+   (se fusionaron en un solo servicio). Se promociona con "100 correos diarios
+   a público segmentado, con comunicación efectiva y no genérica". El cliente
+   recibe cada reunión por WhatsApp para confirmarla; los horarios de
+   disponibilidad se definen en la primera reunión de diagnóstico.
+2. **Presencia digital:** indexación + sitemap, campañas de Google Ads (4
+   planes) y tarjetas NFC.
 3. **Software y apps:** se cotiza según el requerimiento.
 
-**No agregues otros precios, cifras de clientes, "24/7" ni promesas de
-posicionamiento, de ventas o de reuniones** sin que el dueño las confirme, y
-no menciones el software de prospección que se usa por dentro ni hables de
-"base de datos propia" (no lo es). La oferta ha cambiado varias veces: **no
-copies nada de un chat, un README viejo o una sesión anterior**.
+**La web NO muestra precios** (decisión de los socios, 2026-10-05): los valores
+se informan al cliente en la reunión de diagnóstico y viven solo en el manual
+interno privado. No los agregues a la web, a `site-config.ts` ni a este repo
+público. Tampoco cifras de clientes, "24/7" ni promesas de posicionamiento, de
+ventas o de reuniones sin que el dueño las confirme, ni menciones el software
+de prospección que se usa por dentro ni hables de "base de datos propia" (no lo
+es). La oferta ha cambiado varias veces: **no copies nada de un chat, un README
+viejo o una sesión anterior**.
 
 ## Dominio y publicación
 
@@ -101,7 +102,7 @@ components/
     rotating-word.tsx            Palabra que alterna en el titular
     gateway-flow.tsx             Fondo animado del hero (ver abajo)
   sections/
-    services-section.tsx     Los 3 servicios con precios, tabla de planes de Google Ads y "Cotizar" por WhatsApp
+    services-section.tsx     Los 3 servicios, tabla de planes de Google Ads y "Cotizar" por WhatsApp
     process-section.tsx      "Cómo trabajamos": 4 pasos
     clients-section.tsx      Logos de clientes + cupo "Tu empresa"
     why-us-section.tsx       "Por qué FARUM": sellos (solo los verdaderos)
