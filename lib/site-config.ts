@@ -6,9 +6,10 @@
  * de /components/sections la importan desde acá — así, para actualizar
  * un texto o el número de WhatsApp solo se edita este archivo.
  *
- * Giro vigente: servicios para empresas por suscripción mensual,
- * presupuestados a medida en una reunión. No hay paquetes ni precios
- * públicos: no los agregues acá.
+ * Giro vigente: tres servicios para empresas. Los únicos precios públicos
+ * son los que definieron los socios el 2026-10-05 (ver `services`); todos
+ * son + IVA. No agregues otros valores ni cifras sin que el dueño los
+ * confirme.
  * ------------------------------------------------------------------
  */
 
@@ -26,8 +27,8 @@ const MEETING_MESSAGE = `Hola ${BUSINESS_NAME}, quiero agendar una reunión para
 
 export const siteConfig = {
   businessName: BUSINESS_NAME,
-  tagline: "Prospección, presencia digital y software para tu empresa",
-  description: `${BUSINESS_NAME} reúne prospección de clientes, agendamiento de reuniones, presencia digital (página web, indexación en Google, Google Ads y posicionamiento SEO) y desarrollo de software y apps, para empresas y pymes de Chile.`,
+  tagline: "Prospección con IA, presencia digital y software para tu empresa",
+  description: `${BUSINESS_NAME} reúne prospección de clientes con IA (con agendamiento y confirmación de reuniones incluidos), presencia digital (indexación en Google, campañas de Google Ads y tarjetas NFC) y desarrollo de software y apps, para empresas y pymes de Chile.`,
 
   // Logos (versión blanca para el tema oscuro). Los archivos viven en
   // /public/brand; ver el README para las variantes en negro.
@@ -58,55 +59,65 @@ export const siteConfig = {
     rotatingInterval: 1000,
     titleLine2: "y hacemos que te encuentren.",
     description:
-      "Prospección, agendamiento de reuniones, presencia digital y desarrollo de software, en un solo equipo y con una suscripción mensual a tu medida.",
+      "Prospección de clientes con IA, presencia digital y desarrollo de software, en un solo equipo y con trato directo de los socios.",
     primaryButtonText: "Agenda tu reunión",
     secondaryButtonText: "Ver servicios",
   },
 
-  // Sección de servicios: encabezado y las 4 líneas de servicio. `icon` es una
+  // Sección de servicios: encabezado y las 3 líneas de servicio. `icon` es una
   // clave que components/sections/services-section.tsx traduce al ícono de
   // lucide. `quoteMessage` es el mensaje de WhatsApp del botón "Cotizar".
+  // Precios (definidos por los socios el 2026-10-05): todos van + IVA.
+  //   - `price`: precio de la tarjeta completa (solo la prospección).
+  //   - `modules`: servicios sueltos con su valor; `price` vacío = se cotiza.
   services: {
     eyebrow: "Servicios",
-    title: "Contrata solo lo que tu empresa necesita",
+    title: "Tres servicios, claros y sin letra chica",
     description:
-      "Armamos tu suscripción mensual a medida: en la reunión definimos qué servicios necesitas y el presupuesto sale según los que tomes.",
+      "Contrata solo lo que tu empresa necesita. Los valores son en pesos chilenos y no incluyen IVA.",
     quoteLabel: "Cotizar este servicio",
+    vatNote: "+ IVA",
     pillars: [
       {
         icon: "prospect",
-        title: "Prospección de clientes",
-        description: "Salimos a buscar a tus próximos clientes.",
-        items: [
-          "Llamadas, correo y LinkedIn",
-          "Segmentación según tu mercado",
-          "Mensajes personalizados",
-        ],
-        quoteMessage: `Hola ${BUSINESS_NAME}, quiero cotizar el servicio de prospección de clientes.`,
-      },
-      {
-        icon: "schedule",
-        title: "Agendamiento y confirmaciones",
+        title: "Prospección de clientes con IA",
         description:
-          "Coordinamos las reuniones con los interesados y las confirmamos antes de que ocurran.",
+          "Salimos a buscar a tus próximos clientes y te agendamos las reuniones.",
+        price: { amount: "$200.000", unit: "+ IVA al mes" },
         items: [
-          "Agendamiento con los interesados",
-          "Confirmación previa de cada reunión",
-          "Gestión directa de los socios",
+          "Enviamos 100 correos diarios a un público segmentado",
+          "Comunicación efectiva, no mensajes genéricos",
+          "Agendamiento y confirmación de reuniones incluidos",
+          "Recibes cada reunión por WhatsApp para que la confirmes",
         ],
-        quoteMessage: `Hola ${BUSINESS_NAME}, quiero cotizar el servicio de agendamiento y confirmación de reuniones.`,
+        modules: [],
+        priceNote: null,
+        quoteMessage: `Hola ${BUSINESS_NAME}, quiero cotizar el servicio de prospección de clientes con IA.`,
       },
       {
         icon: "presence",
         title: "Presencia digital",
         description: "Que tu marca se vea, exista y se encuentre.",
-        items: [
-          "Página web, dominio y hosting",
-          "Indexación en Google",
-          "Campañas de Google Ads",
-          "Posicionamiento SEO y en IA",
-          "Herramientas de integración digital, como tarjetas NFC",
+        price: null,
+        items: [],
+        modules: [
+          {
+            name: "Indexación + sitemap",
+            detail: "Registramos tu sitio en Google para que pueda mostrarlo.",
+            price: "$19.990",
+          },
+          {
+            name: "Campaña de Google Ads",
+            detail: "Anuncios cuando buscan lo que ofreces. Elige tu plan abajo.",
+            price: null,
+          },
+          {
+            name: "Tarjetas NFC",
+            detail: "Tu cliente la acerca al celular y se abre lo que configuramos.",
+            price: "$14.990",
+          },
         ],
+        priceNote: null,
         quoteMessage: `Hola ${BUSINESS_NAME}, quiero cotizar el servicio de presencia digital.`,
       },
       {
@@ -114,10 +125,41 @@ export const siteConfig = {
         title: "Software y apps",
         description:
           "Desarrollamos la herramienta que tu negocio necesita y la dejamos funcionando.",
+        price: null,
         items: ["Apps móviles", "Software a medida", "Páginas web"],
+        modules: [],
+        priceNote:
+          "El valor depende de tu requerimiento: lo conversamos y te enviamos una cotización.",
         quoteMessage: `Hola ${BUSINESS_NAME}, quiero cotizar el desarrollo de software o de una app.`,
       },
     ],
+  },
+
+  // Detalle de las campañas de Google Ads por plan. No se publican valores:
+  // el costo depende de lo competitivo que sea el negocio en Google y se
+  // cotiza en la reunión. `includedFrom` = primer plan (1 a 4) que lo incluye.
+  googleAds: {
+    eyebrow: "Google Ads",
+    title: "Campañas de Google Ads: elige tu plan",
+    description:
+      "Cuatro planes, de menor a mayor alcance mensual. El valor depende de lo competitivo que sea tu negocio en Google.",
+    plans: ["Plan 1", "Plan 2", "Plan 3", "Plan 4"],
+    features: [
+      { label: "Creación de avisos y selección de palabras clave", includedFrom: 1 },
+      { label: "Optimización constante de la campaña", includedFrom: 1 },
+      { label: "Red de display", includedFrom: 1 },
+      { label: "Avisos en computadoras, teléfonos y tabletas", includedFrom: 1 },
+      { label: "Atención directa de un socio", includedFrom: 1 },
+      { label: "Plataforma de informes", includedFrom: 1 },
+      { label: "Avisos con extensiones", includedFrom: 1 },
+      { label: "Integración con Google Analytics", includedFrom: 1 },
+      { label: "Creación de avisos gráficos para la red de display", includedFrom: 3 },
+      { label: "Software de administración y optimización", includedFrom: 3 },
+    ],
+    note: "El valor de cada plan se define en la reunión y no incluye IVA. No prometemos un número de visitas ni de ventas.",
+    quoteLabel: "Cotizar",
+    quoteMessage: (plan: string) =>
+      `Hola ${BUSINESS_NAME}, quiero cotizar una campaña de Google Ads (${plan}).`,
   },
 
   // Sección "Cómo trabajamos": pasos desde el primer contacto.
@@ -126,14 +168,14 @@ export const siteConfig = {
     title: "De la primera reunión a tu servicio funcionando",
     steps: [
       {
-        title: "Reunión con ambos socios",
+        title: "Reunión de diagnóstico",
         description:
-          "Conversamos sobre tu negocio, tus clientes ideales y lo que necesitas.",
+          "Conversamos sobre tu negocio, tus clientes ideales y los horarios en que puedes recibir reuniones.",
       },
       {
-        title: "Presupuesto a medida",
+        title: "Propuesta clara",
         description:
-          "Armamos tu suscripción mensual solo con los servicios que tomes.",
+          "Te enviamos solo los servicios que elegiste, con sus valores (+ IVA).",
       },
       {
         title: "Puesta en marcha",
@@ -204,7 +246,7 @@ export const siteConfig = {
     eyebrow: "Política",
     title: "Política de prospección responsable",
     description:
-      "Aplica a toda la prospección que hacemos en nombre de tu empresa, por llamadas, correo y LinkedIn.",
+      "Aplica a toda la prospección que hacemos en nombre de tu empresa, principalmente por correo.",
     principles: [
       {
         icon: "professional",
@@ -271,7 +313,7 @@ export const siteConfig = {
     eyebrow: "Hablemos",
     title: "Agenda tu reunión por WhatsApp",
     description:
-      "Escríbenos y coordinamos una reunión con ambos socios para conocer tu negocio y armar tu propuesta a medida.",
+      "Escríbenos y coordinamos una reunión con ambos socios para conocer tu negocio y ver qué servicios te convienen.",
     buttonLabel: "Agenda tu reunión por WhatsApp",
     qrCaption: "Escanea y escríbenos",
   },
@@ -280,7 +322,7 @@ export const siteConfig = {
     {
       question: `¿Qué hace ${BUSINESS_NAME}?`,
       answer:
-        "Reunimos en un solo equipo cuatro servicios: prospección de clientes, agendamiento y confirmación de reuniones, presencia digital (página web, indexación en Google, Google Ads y posicionamiento SEO) y desarrollo de software y apps.",
+        "Ofrecemos tres servicios en un solo equipo: prospección de clientes con IA (con agendamiento y confirmación de reuniones incluidos), presencia digital (indexación en Google, campañas de Google Ads y tarjetas NFC) y desarrollo de software y apps.",
     },
     {
       question: "¿A quién le sirve?",
@@ -288,9 +330,14 @@ export const siteConfig = {
         "A empresas y pymes de Chile que quieren llegar a más clientes y hacer que las encuentren, sin tener que armar un equipo propio para cada tarea.",
     },
     {
-      question: "¿Cómo se cobra?",
+      question: "¿Cuánto cuesta?",
       answer:
-        "Con una suscripción mensual a tu medida. No hay paquetes cerrados: en la reunión definimos qué servicios necesitas y armamos el presupuesto según los que tomes.",
+        "La prospección de clientes con IA cuesta $200.000 + IVA al mes. La indexación con sitemap cuesta $19.990 + IVA y la tarjeta NFC, $14.990 + IVA. Las campañas de Google Ads y el software o las apps se cotizan según tu caso.",
+    },
+    {
+      question: "¿Cómo funciona la prospección de clientes?",
+      answer:
+        "Definimos tu nicho, la IA analiza el mercado y redactamos un correo efectivo, no genérico, que enviamos a un público segmentado: 100 correos diarios. Agendamos la reunión con quienes confirman y te avisamos por WhatsApp y correo. Los horarios en que puedes recibir reuniones los definimos juntos en la primera reunión de diagnóstico.",
     },
     {
       question: "¿Puedo cancelar cuando quiera?",
@@ -298,19 +345,14 @@ export const siteConfig = {
         "Sí. Cuando ya no quieras el servicio, lo damos de baja, sin costo ni letra chica. Y si más adelante decides volver, lo retomamos.",
     },
     {
-      question: "¿Qué incluye la presencia digital?",
+      question: "¿Me aseguran un lugar en Google o reuniones con clientes?",
       answer:
-        "Página web con dominio y hosting, indexación en Google, campañas de Google Ads, posicionamiento SEO y en IA, y herramientas de integración digital como las tarjetas NFC. Tú eliges qué parte necesitas.",
-    },
-    {
-      question: "¿Me aseguran un lugar en Google?",
-      answer:
-        "No, porque nadie puede prometer un puesto exacto. Lo que hacemos es una estrategia de búsqueda constante, con un método específico, que ajustamos mes a mes para que compitas de verdad.",
+        "No, porque nadie puede prometer un puesto exacto ni un resultado de ventas. Lo que hacemos es un trabajo constante, con método, que ajustamos mes a mes. Lo que sí te decimos con claridad es cuántos correos enviamos y qué incluye cada servicio.",
     },
     {
       question: "¿Qué es la tarjeta NFC y cómo se usa?",
       answer:
-        "Es una tarjeta con un chip NFC, parte de nuestras herramientas de integración digital. Tu cliente la acerca a la parte trasera de su celular y se abre lo que dejamos configurado, sin instalar nada: por ejemplo, una reseña en Google, tus redes sociales o tus datos de contacto.",
+        "Es una tarjeta con un chip NFC. Tu cliente la acerca a la parte trasera de su celular y se abre lo que dejamos configurado, sin instalar nada: por ejemplo, una reseña en Google, tus redes sociales o tus datos de contacto.",
     },
     {
       question: "¿Cómo cuidan los datos de las personas que contactan?",
