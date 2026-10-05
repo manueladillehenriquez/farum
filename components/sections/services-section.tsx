@@ -36,17 +36,6 @@ function ServiceCard({
       </h3>
       <p className="text-sm text-muted-foreground">{pillar.description}</p>
 
-      {pillar.price && (
-        <p className="text-foreground">
-          <span className="font-instrument-serif text-3xl">
-            {pillar.price.amount}
-          </span>{" "}
-          <span className="text-sm text-muted-foreground">
-            {pillar.price.unit}
-          </span>
-        </p>
-      )}
-
       {pillar.items.length > 0 && (
         <ul className="flex flex-col gap-2">
           {pillar.items.map((item) => (
@@ -76,27 +65,9 @@ function ServiceCard({
                   {module.detail}
                 </p>
               </div>
-              <p className="flex-none text-right text-sm text-foreground">
-                {module.price ? (
-                  <>
-                    <span className="font-medium">{module.price}</span>
-                    <span className="block text-xs text-muted-foreground">
-                      {siteConfig.services.vatNote}
-                    </span>
-                  </>
-                ) : (
-                  <span className="text-xs text-muted-foreground">
-                    A cotizar
-                  </span>
-                )}
-              </p>
             </li>
           ))}
         </ul>
-      )}
-
-      {pillar.priceNote && (
-        <p className="text-sm text-foreground">{pillar.priceNote}</p>
       )}
 
       <a

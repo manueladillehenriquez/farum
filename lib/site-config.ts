@@ -6,10 +6,10 @@
  * de /components/sections la importan desde acá — así, para actualizar
  * un texto o el número de WhatsApp solo se edita este archivo.
  *
- * Giro vigente: tres servicios para empresas. Los únicos precios públicos
- * son los que definieron los socios el 2026-10-05 (ver `services`); todos
- * son + IVA. No agregues otros valores ni cifras sin que el dueño los
- * confirme.
+ * Giro vigente: tres servicios para empresas. NO hay precios en la web:
+ * los socios (2026-10-05) decidieron informarlos solo en la reunión de
+ * diagnóstico; los valores viven únicamente en el manual interno. No los
+ * agregues acá ni cifras sin que el dueño las confirme.
  * ------------------------------------------------------------------
  */
 
@@ -67,23 +67,20 @@ export const siteConfig = {
   // Sección de servicios: encabezado y las 3 líneas de servicio. `icon` es una
   // clave que components/sections/services-section.tsx traduce al ícono de
   // lucide. `quoteMessage` es el mensaje de WhatsApp del botón "Cotizar".
-  // Precios (definidos por los socios el 2026-10-05): todos van + IVA.
-  //   - `price`: precio de la tarjeta completa (solo la prospección).
-  //   - `modules`: servicios sueltos con su valor; `price` vacío = se cotiza.
+  // SIN precios: se informan en la reunión de diagnóstico (decisión de los
+  // socios, 2026-10-05). `modules` lista los módulos sueltos de un servicio.
   services: {
     eyebrow: "Servicios",
     title: "Tres servicios, claros y sin letra chica",
     description:
-      "Contrata solo lo que tu empresa necesita. Los valores son en pesos chilenos y no incluyen IVA.",
+      "Contrata solo lo que tu empresa necesita. Los valores te los informamos en la primera reunión.",
     quoteLabel: "Cotizar este servicio",
-    vatNote: "+ IVA",
     pillars: [
       {
         icon: "prospect",
         title: "Prospección de clientes con IA",
         description:
           "Salimos a buscar a tus próximos clientes y te agendamos las reuniones.",
-        price: { amount: "$200.000", unit: "+ IVA al mes" },
         items: [
           "Enviamos 100 correos diarios a un público segmentado",
           "Comunicación efectiva, no mensajes genéricos",
@@ -91,33 +88,27 @@ export const siteConfig = {
           "Recibes cada reunión por WhatsApp para que la confirmes",
         ],
         modules: [],
-        priceNote: null,
         quoteMessage: `Hola ${BUSINESS_NAME}, quiero cotizar el servicio de prospección de clientes con IA.`,
       },
       {
         icon: "presence",
         title: "Presencia digital",
         description: "Que tu marca se vea, exista y se encuentre.",
-        price: null,
         items: [],
         modules: [
           {
             name: "Indexación + sitemap",
             detail: "Registramos tu sitio en Google para que pueda mostrarlo.",
-            price: "$19.990",
           },
           {
             name: "Campaña de Google Ads",
             detail: "Anuncios cuando buscan lo que ofreces. Elige tu plan abajo.",
-            price: null,
           },
           {
             name: "Tarjetas NFC",
             detail: "Tu cliente la acerca al celular y se abre lo que configuramos.",
-            price: "$14.990",
           },
         ],
-        priceNote: null,
         quoteMessage: `Hola ${BUSINESS_NAME}, quiero cotizar el servicio de presencia digital.`,
       },
       {
@@ -125,11 +116,8 @@ export const siteConfig = {
         title: "Software y apps",
         description:
           "Desarrollamos la herramienta que tu negocio necesita y la dejamos funcionando.",
-        price: null,
         items: ["Apps móviles", "Software a medida", "Páginas web"],
         modules: [],
-        priceNote:
-          "El valor depende de tu requerimiento: lo conversamos y te enviamos una cotización.",
         quoteMessage: `Hola ${BUSINESS_NAME}, quiero cotizar el desarrollo de software o de una app.`,
       },
     ],
@@ -137,12 +125,12 @@ export const siteConfig = {
 
   // Detalle de las campañas de Google Ads por plan. No se publican valores:
   // el costo depende de lo competitivo que sea el negocio en Google y se
-  // cotiza en la reunión. `includedFrom` = primer plan (1 a 4) que lo incluye.
+  // informa en la reunión de diagnóstico. `includedFrom` = primer plan (1 a 4) que lo incluye.
   googleAds: {
     eyebrow: "Google Ads",
     title: "Campañas de Google Ads: elige tu plan",
     description:
-      "Cuatro planes, de menor a mayor alcance mensual. El valor depende de lo competitivo que sea tu negocio en Google.",
+      "Cuatro planes, de menor a mayor alcance mensual. El valor depende de lo competitivo que sea tu negocio en Google y te lo informamos en la primera reunión.",
     plans: ["Plan 1", "Plan 2", "Plan 3", "Plan 4"],
     features: [
       { label: "Creación de avisos y selección de palabras clave", includedFrom: 1 },
@@ -156,7 +144,7 @@ export const siteConfig = {
       { label: "Creación de avisos gráficos para la red de display", includedFrom: 3 },
       { label: "Software de administración y optimización", includedFrom: 3 },
     ],
-    note: "El valor de cada plan se define en la reunión y no incluye IVA. No prometemos un número de visitas ni de ventas.",
+    note: "No prometemos un número de visitas ni de ventas.",
     quoteLabel: "Cotizar",
     quoteMessage: (plan: string) =>
       `Hola ${BUSINESS_NAME}, quiero cotizar una campaña de Google Ads (${plan}).`,
@@ -175,7 +163,7 @@ export const siteConfig = {
       {
         title: "Propuesta clara",
         description:
-          "Te enviamos solo los servicios que elegiste, con sus valores (+ IVA).",
+          "Te informamos los valores y te enviamos una propuesta solo con los servicios que elegiste.",
       },
       {
         title: "Puesta en marcha",
@@ -332,7 +320,7 @@ export const siteConfig = {
     {
       question: "¿Cuánto cuesta?",
       answer:
-        "La prospección de clientes con IA cuesta $200.000 + IVA al mes. La indexación con sitemap cuesta $19.990 + IVA y la tarjeta NFC, $14.990 + IVA. Las campañas de Google Ads y el software o las apps se cotizan según tu caso.",
+        "Depende de los servicios que elijas. Los valores te los informamos en la primera reunión de diagnóstico, sin compromiso, y después te enviamos una propuesta solo con lo que necesites.",
     },
     {
       question: "¿Cómo funciona la prospección de clientes?",
