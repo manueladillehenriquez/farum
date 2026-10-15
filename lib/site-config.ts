@@ -51,15 +51,15 @@ export const siteConfig = {
   // app/page.tsx, para que todo el mensaje del sitio viva en un solo lugar.
   hero: {
     badgeLabel: "Cupos limitados",
-    badgeText: "Un grupo reducido de clientes, con trato directo de los socios",
+    badgeText: "Un grupo reducido de clientes",
     // Titular: "{title} {palabra rotativa} {titleLine2}". La palabra alterna
     // entre `rotatingWords` cada `rotatingInterval` ms (ver RotatingWord).
     title: "Encontramos clientes para tu",
     rotatingWords: ["empresa", "negocio", "pyme"],
     rotatingInterval: 1000,
-    titleLine2: "y hacemos que te encuentren.",
+    titleLine2: "y los guiamos hacia ti.",
     description:
-      "Prospección de clientes con IA, presencia digital y desarrollo de software, en un solo equipo y con trato directo de los socios.",
+      "Prospección de clientes con IA, presencia digital y desarrollo de software, en un solo equipo.",
     primaryButtonText: "Agenda tu reunión",
     secondaryButtonText: "Ver servicios",
   },
@@ -97,6 +97,14 @@ export const siteConfig = {
         items: [],
         modules: [
           {
+            name: "Páginas web",
+            detail: "Tu sitio web, diseñado y publicado para que tu marca exista en internet.",
+          },
+          {
+            name: "Dominio",
+            detail: "Tu dirección propia en internet, por ejemplo tuempresa.cl.",
+          },
+          {
             name: "Indexación + sitemap",
             detail: "Registramos tu sitio en Google para que pueda mostrarlo.",
           },
@@ -116,7 +124,7 @@ export const siteConfig = {
         title: "Software y apps",
         description:
           "Desarrollamos la herramienta que tu negocio necesita y la dejamos funcionando.",
-        items: ["Apps móviles", "Software a medida", "Páginas web"],
+        items: ["Apps móviles", "Software a medida"],
         modules: [],
         quoteMessage: `Hola ${BUSINESS_NAME}, quiero cotizar el desarrollo de software o de una app.`,
       },
@@ -137,7 +145,6 @@ export const siteConfig = {
       { label: "Optimización constante de la campaña", includedFrom: 1 },
       { label: "Red de display", includedFrom: 1 },
       { label: "Avisos en computadoras, teléfonos y tabletas", includedFrom: 1 },
-      { label: "Atención directa de un socio", includedFrom: 1 },
       { label: "Plataforma de informes", includedFrom: 1 },
       { label: "Avisos con extensiones", includedFrom: 1 },
       { label: "Integración con Google Analytics", includedFrom: 1 },
@@ -206,7 +213,7 @@ export const siteConfig = {
     {
       name: "Nutricionista Camila Ortega",
       url: "https://www.nutricionistacamilaortega.cl",
-      displayUrl: "www.nutricionistacamilaortega.cl",
+      displayUrl: "nutricionistacamilaortega.cl",
       logo: `${BASE_PATH}/clients/nutricionista-camila-ortega.png`,
       logoBg: "#ffffff",
     },
@@ -221,8 +228,8 @@ export const siteConfig = {
     description: "Esto es lo que puedes esperar de nosotros, de principio a fin.",
     badges: [
       { icon: "invoice", label: "Boleta o factura" },
-      { icon: "team", label: "Reunión con ambos socios" },
-      { icon: "support", label: "Trato directo, sin call center" },
+      { icon: "team", label: "Expertos para cada servicio" },
+      { icon: "support", label: "Planes personalizados, resultados específicos" },
       { icon: "clients", label: "Cupos limitados" },
     ],
   },
@@ -301,7 +308,7 @@ export const siteConfig = {
     eyebrow: "Hablemos",
     title: "Agenda tu reunión por WhatsApp",
     description:
-      "Escríbenos y coordinamos una reunión con ambos socios para conocer tu negocio y ver qué servicios te convienen.",
+      "Escríbenos y coordinamos una reunión para conocer tu negocio y ver qué servicios te convienen.",
     buttonLabel: "Agenda tu reunión por WhatsApp",
     qrCaption: "Escanea y escríbenos",
   },
@@ -350,7 +357,7 @@ export const siteConfig = {
     {
       question: "¿Con quién voy a hablar?",
       answer:
-        "Directo con nosotros por WhatsApp. No hay call center ni tickets de soporte, y las reuniones son con ambos socios.",
+        "Directo con nosotros por WhatsApp, sin intermediarios.",
     },
     {
       question: "¿Por qué no lo hago con mi propio equipo?",
